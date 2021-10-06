@@ -13,7 +13,8 @@ const GestionarProductos = () => {
         } else {   
             setTextoBoton('Volver a Gestionar Productos')
         }
-    }, [mostrarTablaProductos])    
+    }, [mostrarTablaProductos])
+        
     return (
         <div>
             <button

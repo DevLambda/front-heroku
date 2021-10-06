@@ -2,6 +2,7 @@
 import Login from './pages/login';
 import Ventas from './pages/Ventas';
 import GestionarProductos from './pages/GestionarProductos';
+import GestionarUsuarios from './pages/GestionarUsuarios';
 import './styles/App.css'
 
 import React from "react";
@@ -28,6 +29,10 @@ function App() {
 
          <Route path='/GestionarProductos'>
           <GestionarProductos />
+         </Route>
+
+         <Route path='/GestionarUsuarios'>
+          <GestionarUsuarios />
          </Route>
 
          <Route path='/'>
