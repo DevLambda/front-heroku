@@ -23,7 +23,14 @@ font-family: 'Be Vietnam Pro', sans-serif;
     color: white;
     align-content: center;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 116x;
+    align-items: center;
+
+}
+
+.navbar a{
+    color: white;
+    text-decoration-line: none;
 }
 
 #logo {
@@ -35,13 +42,11 @@ font-family: 'Be Vietnam Pro', sans-serif;
 
 .botonNavbar {
     display: flex;
-    align-items: center;
     cursor: pointer;
 }
 
 .botonNavbar:hover {
     text-decoration-line: underline;
-    color: white;
 }
 
 .botonSalir {
