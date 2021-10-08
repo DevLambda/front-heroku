@@ -1,10 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
 
 //const GestionarproductosBackend = [
 //];
+
+const GestionarProductosBackend = [
+    {
+        idProducto: "0002",
+        descripcion: "Bonsai Komono",
+        valor: "$120.000",
+        estado: "",
+    },
+    {
+        idProducto: "0008",
+        descripcion: "Bonsai Shito",
+        valor: "$220.000",
+        estado: "",
+    },
+    {
+        idProducto: "0010",
+        descripcion: "Bonsai Kotate",
+        valor: "$150.000",
+        estado: "",
+    },
+    {
+        idProducto: "0014",
+        descripcion: "Bonsai Shohin",
+        valor: "$170.000",
+        estado: "",
+    },
+]
 
 const GestionarProductos = () => {
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
@@ -14,6 +43,7 @@ const GestionarProductos = () => {
 
 
     useEffect(() => {
+        setGestionarProductos(GestionarProductosBackend);
     }, []);
 
     useEffect(() => {
@@ -78,9 +108,10 @@ const TablaProductos = ({ listaProductos }) => {
                                         <td>{producto.idProducto}</td>
                                         <td>{producto.descripcion}</td>
                                         <td>{producto.valor}</td>
-                                        <td><label className="badgeAvailable">Disponible</label></td>
+                                        <td>{producto.estado}<label className="badgeAvailable">Disponible</label></td>
                                         <td><button className="editButton">
-                                            <span className="material-icons">edit</span></button>
+                                            <span className="material-icons">edit</span>
+                                            </button>
                                         </td>
                                     </tr>
                                 );
@@ -113,12 +144,12 @@ const RegistrarProductos = () => {
                 </label>
             
                 <label htmlFor="descripciónProducto">Descripción del producto
-                <input type="text" name="Descripción"
+                <input type="text" name="descripción"
                 placeholder="Ejemplo: Bonsai..." required/>
                 </label>
 
                 <label htmlFor="valorProducto">Valor producto
-                <input type="text" name="Descripción"
+                <input type="text" name="valor"
                 placeholder="Ingresa el valor en pesos..." required/>
                 </label>
             
