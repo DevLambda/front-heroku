@@ -388,6 +388,24 @@ input[type=submit]:hover {
 background-color: #00ac00;
 }
 
+/*-------- Botón guardar y editar Formulario Producto--------*/
+
+.botonGuardarProducto {
+    background-color: #1BC628;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    height: 42px;
+    width: 250px;
+    cursor: pointer;
+    }
+    
+.botonGuardarProducto:hover {
+background-color: #00ac00;
+}
+
 /*--------Tabla usuarios--------*/
 
 .usersTable {

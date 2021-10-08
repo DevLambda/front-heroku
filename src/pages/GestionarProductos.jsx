@@ -106,25 +106,33 @@ const RegistrarProductos = () => {
         </div>
             <div className="contenedorFormulario">
             <form>
-                <div ClassName="labelform">
-                <label for="fname">ID producto</label>
-                <input type="text" id="fname" nameName="firstname" placeholder="000001..."/>
-            
-                <label for="lname">Descripción del producto</label>
-                <input type="text" id="lname" nameName="Descripción" placeholder="Zapatos, camisas..."/>
 
-                <label for="lname">Valor producto</label>
-                <input type="text" id="lname" nameName="Descripción" placeholder="Ingresa el valor en pesos..."/>
+                <label htmlFor="id">ID de Producto
+                <input type="text" name="idProducto"
+                placeholder="Ejemplo: 0001" required/>
+                </label>
             
-                <label for="estado">Selecciona el estado</label>
-                <select id="estado" nameName="estado">
-                    <option value="Disponible">Disponible</option>
-                    <option value="No disponible">No disponible</option>
-                </select>
-                <input type="submit" value="Guardar nuevo producto"></input>
-                </div>
+                <label htmlFor="descripciónProducto">Descripción del producto
+                <input type="text" name="Descripción"
+                placeholder="Ejemplo: Bonsai..." required/>
+                </label>
+
+                <label htmlFor="valorProducto">Valor producto
+                <input type="text" name="Descripción"
+                placeholder="Ingresa el valor en pesos..." required/>
+                </label>
+            
+                <label htmlFor="estadoProducto">Estado del producto
+                    <select name="estado" required>
+                        <option disable value={0}> Selecciona un estado</option>
+                        <option>Disponible</option>
+                        <option>No disponible</option>
+                    </select>
+                </label>
+                <button type="submit" className="botonGuardarProducto"> Guardar nuevo producto
+                </button>
             </form>
-        </div>
+            </div>
         <Footer/>
     </div>
     );
