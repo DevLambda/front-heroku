@@ -3,17 +3,27 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
 
+//const GestionarproductosBackend = [
+//];
+
 const GestionarProductos = () => {
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
-    const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto')
+    const [GestionarProductos, setGestionarProductos] = useState([]);
+    const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
+    //const [colorBoton,setColorBoton] = useState();
+
+
+    useEffect(() => {
+    }, []);
 
     useEffect(() => {
         if (mostrarTablaProductos) {
-            setTextoBoton('Crear nuevo Producto')
+            setTextoBoton('Crear nuevo Producto');
         } else {   
-            setTextoBoton('Volver a Gestionar Productos')
+            setTextoBoton('Volver a Gestionar Productos');
+            //setColorBoton();
         }
-    }, [mostrarTablaProductos])
+    }, [mostrarTablaProductos]);
         
     return (
         <div>
@@ -21,16 +31,20 @@ const GestionarProductos = () => {
             onClick={() => {
                 setMostrarTablaProductos(!mostrarTablaProductos)
             }}
-            className="botonCrear">
+            className="botonCrear">                
             {textoBoton}
             </button>
-            {mostrarTablaProductos ? <TablaProductos/> : <RegistrarProductos/> }
+            {mostrarTablaProductos ? <TablaProductos listaProductos={GestionarProductos}/> : <RegistrarProductos/> }
         </div>
     )
 }    
-/*------------ Taabla Productos --------------*/
+/*------------ Tabla Productos --------------*/
 
-const TablaProductos = () => {
+const TablaProductos = ({ listaProductos }) => {
+    useEffect(() => {
+        console.log("listado de productos en la tabla",listaProductos)
+    }, [listaProductos]);
+    
     return (
         <div>
             <Header/>
@@ -58,24 +72,19 @@ const TablaProductos = () => {
                             </tr>
                             </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Zapatos</td>
-                                <td>$120.000</td>
-                                <td><label className="badgeAvailable">Disponible</label></td>
-                                <td><button className="editButton">
-                                    <span className="material-icons">edit</span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Maletín</td>
-                                <td>$90.000</td>
-                                <td><label className="badgeNotAvailable">No disponible</label></td>
-                                <td><button className="editButton">
-                                    <span className="material-icons">edit</span></button>
-                                </td>
-                            </tr>
+                            {listaProductos.map((producto) => {
+                                return (
+                                    <tr>
+                                        <td>{producto.idProducto}</td>
+                                        <td>{producto.descripcion}</td>
+                                        <td>{producto.valor}</td>
+                                        <td><label className="badgeAvailable">Disponible</label></td>
+                                        <td><button className="editButton">
+                                            <span className="material-icons">edit</span></button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
