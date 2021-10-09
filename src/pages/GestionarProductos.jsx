@@ -50,7 +50,6 @@ const GestionarProductos = () => {
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
     const [estado, setEstado] = useState('Disponible');
-    const [estaDisponible, setEstaDisponible] = useState(true);
     //const [colorBoton,setColorBoton] = useState();
 
 
@@ -67,13 +66,6 @@ const GestionarProductos = () => {
         }
     }, [mostrarTablaProductos]);
 
-    useEffect(() => {
-          if (estado == 'Disponible') {
-            setEstaDisponible(true);
-          } else {   
-            setEstaDisponible(false);
-        }
-    }, [estado]);
         
     return (
         <div>
@@ -126,7 +118,7 @@ const TablaProductos = ({ listaProductos }) => {
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Actividad</th>
-                            </tr>
+                            </tr>yarn
                             </thead>
                         <tbody>
                             {listaProductos.map((producto, estaDisponible) => {
@@ -135,7 +127,7 @@ const TablaProductos = ({ listaProductos }) => {
                                         <td>{producto.idProducto}</td>
                                         <td>{producto.descripcion}</td>
                                         <td>{producto.valor}</td>
-                                        <td><label className={estaDisponible ? 'badgeAvailable':'badgeNotAvailable'}>{producto.estado}</label></td>
+                                        <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>{producto.estado}</label></td>
                                         <td><button className="editButton">
                                             <span className="material-icons">edit</span>
                                             </button>
