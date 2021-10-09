@@ -1,8 +1,20 @@
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
 
+const GestionarUsuariosBackend = [
+    {
+        given_name: "Marcela",
+        family_name: "Rojas",
+        nickname: "marcelarojasd.7c",
+    },
+    {
+        given_name: "Gina",
+        family_name: "Rodriguez",
+        nickname: "gina.rodriguez",
+    },
+]
 
 const GestionarUsuarios = () => {
     return (
@@ -44,18 +56,6 @@ const GestionarUsuarios = () => {
                                 <td>marcelarojas_d@outlook.com</td>
                                 <td>3518888888</td>
                                 <td><label className="badgeAvailable">Aprobado</label></td>
-                                <td><button className="editButton">
-                                    <span className="material-icons">edit</span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Cristian</td>
-                                <td>Caleño</td>
-                                <td>Vendedor</td>
-                                <td>cristian@outlook.com</td>
-                                <td>3518888888</td>
-                                <td><label className="badgeNotAvailable">Pendiente</label></td>
                                 <td><button className="editButton">
                                     <span className="material-icons">edit</span></button>
                                 </td>

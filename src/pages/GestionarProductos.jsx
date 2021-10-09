@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header'
@@ -10,13 +10,13 @@ const GestionarProductosBackend = [
         idProducto: "0001",
         descripcion: "Bonsai Komono",
         valor: "$120.000",
-        estado: "",
+        estado: "Disponible",
     },
     {
         idProducto: "0002",
         descripcion: "Bonsai Shito",
         valor: "$220.000",
-        estado: "",
+        estado: "No Disponible",
     },
     {
         idProducto: "0003",
@@ -45,9 +45,12 @@ const GestionarProductosBackend = [
 ]
 
 const GestionarProductos = () => {
-    const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
+
     const [GestionarProductos, setGestionarProductos] = useState([]);
+    const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
+    const [estado, setEstado] = useState('Disponible');
+    const [estaDisponible, setEstaDisponible] = useState(true);
     //const [colorBoton,setColorBoton] = useState();
 
 
@@ -63,6 +66,14 @@ const GestionarProductos = () => {
             //setColorBoton();
         }
     }, [mostrarTablaProductos]);
+
+    useEffect(() => {
+          if (estado == 'Disponible') {
+            setEstaDisponible(true);
+          } else {   
+            setEstaDisponible(false);
+        }
+    }, [estado]);
         
     return (
         <div>
@@ -118,13 +129,13 @@ const TablaProductos = ({ listaProductos }) => {
                             </tr>
                             </thead>
                         <tbody>
-                            {listaProductos.map((producto) => {
+                            {listaProductos.map((producto, estaDisponible) => {
                                 return (
                                     <tr>
                                         <td>{producto.idProducto}</td>
                                         <td>{producto.descripcion}</td>
                                         <td>{producto.valor}</td>
-                                        <td>{producto.estado}<label className="badgeAvailable">Disponible</label></td>
+                                        <td><label className={estaDisponible ? 'badgeAvailable':'badgeNotAvailable'}>{producto.estado}</label></td>
                                         <td><button className="editButton">
                                             <span className="material-icons">edit</span>
                                             </button>
