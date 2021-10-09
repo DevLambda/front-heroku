@@ -64,7 +64,14 @@ const GestionarProductos = () => {
             className="botonCrear">                
             {textoBoton}
             </button>
-            {mostrarTablaProductos ? <TablaProductos listaProductos={GestionarProductos}/> : <RegistrarProductos/> }
+            {mostrarTablaProductos ? (<TablaProductos listaProductos={GestionarProductos}/>
+            ) : ( <RegistrarProductos
+                setMostrarTablaProductos={setMostrarTablaProductos}
+                listaProductos={GestionarProductos}
+                setGestionarProductos={setGestionarProductos}
+            />
+            )}
+            <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
     )
 }    
@@ -127,7 +134,23 @@ const TablaProductos = ({ listaProductos }) => {
 
 /*------------ Crear Nuevos Productos --------------*/
 
-const RegistrarProductos = () => {
+const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGestionarProductos }) => {
+    const form = useRef(null);
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        const fd = new FormData(form.current);
+
+        const nuevoProducto = {};
+        fd.forEach((value, key) => {
+            nuevoProducto[key] = value;
+        });
+
+        setMostrarTablaProductos(true);
+        setGestionarProductos([...listaProductos, nuevoProducto]);
+        toast.success('Producto creado con éxito');
+    };
+    
     return(
         <div>
             <Header/>
@@ -136,16 +159,23 @@ const RegistrarProductos = () => {
             <div className="descripcionSeccion">Ingresa los datos del nuevo producto.</div>
         </div>
             <div className="contenedorFormulario">
-            <form>
+            <form ref={form} onSubmit={submitForm} className='flex flex-col'>
 
                 <label htmlFor="id">ID de Producto
                 <input type="text" name="idProducto"
                 placeholder="Ejemplo: 0001" required/>
                 </label>
             
-                <label htmlFor="descripciónProducto">Descripción del producto
-                <input type="text" name="descripción"
-                placeholder="Ejemplo: Bonsai..." required/>
+                <label htmlFor="descripcionProducto">Descripción del producto
+                <select name="descripcion" required defaultValue={0} >
+                    <option disabled value={0}> Selecciona un producto</option>
+                        <option>Bonsai Chumono</option>
+                        <option>Bonsai Komono</option>
+                        <option>Bonsai Kotate</option>
+                        <option>Bonsai Omono</option>
+                        <option>Bonsai Shito</option>
+                        <option>Bonsai Shohin</option>
+                </select>
                 </label>
 
                 <label htmlFor="valorProducto">Valor producto
@@ -154,8 +184,8 @@ const RegistrarProductos = () => {
                 </label>
             
                 <label htmlFor="estadoProducto">Estado del producto
-                    <select name="estado" required>
-                        <option disable value={0}> Selecciona un estado</option>
+                    <select name="estado" required defaultValue={0} >
+                        <option disabled value={0}> Selecciona un estado</option>
                         <option>Disponible</option>
                         <option>No disponible</option>
                     </select>
