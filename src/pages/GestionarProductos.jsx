@@ -118,7 +118,7 @@ const TablaProductos = ({ listaProductos }) => {
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Actividad</th>
-                            </tr>yarn
+                            </tr>
                             </thead>
                         <tbody>
                             {listaProductos.map((producto, estaDisponible) => {
@@ -167,7 +167,9 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
         <div>
             <Header/>
             <div className="textosInicioSeccion">
-            <div className="tituloSeccion">Agregar nuevo producto</div>
+            <div className="tituloSeccion">
+                <span>Agregar nuevo producto</span>
+                    </div>
             <div className="descripcionSeccion">Ingresa los datos del nuevo producto.</div>
         </div>
             <div className="contenedorFormulario">
