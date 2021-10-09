@@ -1,36 +1,45 @@
 import React, { useEffect, useState } from 'react';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
 
-//const GestionarproductosBackend = [
-//];
-
 const GestionarProductosBackend = [
     {
-        idProducto: "0002",
+        idProducto: "0001",
         descripcion: "Bonsai Komono",
         valor: "$120.000",
         estado: "",
     },
     {
-        idProducto: "0008",
+        idProducto: "0002",
         descripcion: "Bonsai Shito",
         valor: "$220.000",
         estado: "",
     },
     {
-        idProducto: "0010",
+        idProducto: "0003",
         descripcion: "Bonsai Kotate",
         valor: "$150.000",
         estado: "",
     },
     {
-        idProducto: "0014",
+        idProducto: "0004",
         descripcion: "Bonsai Shohin",
-        valor: "$170.000",
+        valor: "$110.000",
+        estado: "",
+    },
+    {
+        idProducto: "0005",
+        descripcion: "Bonsai 1",
+        valor: "$150.000",
+        estado: "",
+    },
+    {
+        idProducto: "0006",
+        descripcion: "Bonsai 2",
+        valor: "$120.000",
         estado: "",
     },
 ]
