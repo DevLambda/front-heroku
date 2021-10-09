@@ -83,8 +83,12 @@ font-family: 'Be Vietnam Pro', sans-serif;
     padding-top: 14rem;
     background-color: #3D0A81;
     color:white;
-    font-size: 25px;
+    justify-items: center;
 
+  }
+  .divlogo > h1{
+    text-align: center;
+    font-size: 5em;
   }
 
   .divlogin{
@@ -94,17 +98,27 @@ font-family: 'Be Vietnam Pro', sans-serif;
     padding: 75px;
   }
 
+  .divlogin > h1{
+    text-align: left;
+    font-size: 2.5em;
+  }
+
   .botonlogin{
     background-color: #F99225;
     border: none;
     color: white;
-    margin-top: 1rem;
+    margin-top: 5rem;
     border-radius: 3px;
-    height: 25px;
+    height: 4em;
+    width: 16em;
     cursor: pointer;
+    font-size: 18px;
+    justify-content: space-evenly;
+    font-weight: 600;
   }
 
-  input[type=password] {
+
+  /* input[type=password] {
     font-size: 14px;
     width: 40em;
     padding: 12px;
@@ -114,7 +128,7 @@ font-family: 'Be Vietnam Pro', sans-serif;
     margin-top: 8px;
     margin-bottom: 16px;
     resize: vertical
-}
+} */
 
   .divinternologo{
     display: flex;
