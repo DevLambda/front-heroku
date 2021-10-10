@@ -4,12 +4,14 @@ import Footer from '../components/Footer';
 
 const Ventas = () => {
     return (
-    <div>
+        <div>
         <Header/>
-    
-    <main>
-        <h1>Ventas Realizadas</h1>
-        <span id="textocorto">Consulta el histórico de ventas, actualiza el estado de estas y/o edita la información que requieras. Lo único que no podrás editar es el ID de venta.</span>
+        <main>
+            <div className="textosInicioSeccion">
+            <div className="tituloSeccion">Ventas Realizadas</div>
+            <div className="descripcionSeccion">Consulta el histórico de ventas, actualiza el estado y/o edita su información.
+            <br />Lo único que no podrás editar es el ID de venta.</div>
+        </div>  
         
         <ul className="fitros">
             <li className="nombreFiltros">ID Venta</li>
