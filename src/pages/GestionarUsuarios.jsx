@@ -76,16 +76,14 @@ const GestionarUsuarios = () => {
                                     <th scope="col">Teléfono</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Estado solicitud</th>
-                                    <th scope="col"></th>
+                                    
     
                                 </tr>
                                 </thead>
                             <tbody>
-                            {/* listaUsuarios={GestionarUsuarios}
-                            setGestionarUsuarios={setGestionarUsuarios}
-                            {listaUsuarios.map((usuario) => {
-                               return(
-                               <tr>
+                            {GestionarUsuariosBackend.map((usuario) => {
+                                return (
+                                    <tr>
                                     <td>{usuario.id_usuario}</td>
                                     <td>{usuario.given_name}</td>
                                     <td>{usuario.family_name}</td>
@@ -97,8 +95,8 @@ const GestionarUsuarios = () => {
                                         <span className="material-icons">edit</span></button>
                                     </td>
                                 </tr>
-                               );
-                                })} */}
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>

@@ -49,7 +49,6 @@ const GestionarProductos = () => {
     const [GestionarProductos, setGestionarProductos] = useState([]);
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
-    const [estado, setEstado] = useState('Disponible');
     //const [colorBoton,setColorBoton] = useState();
 
 
@@ -118,10 +117,10 @@ const TablaProductos = ({ listaProductos }) => {
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Actividad</th>
-                            </tr>yarn
+                            </tr>
                             </thead>
                         <tbody>
-                            {listaProductos.map((producto, estaDisponible) => {
+                            {listaProductos.map((producto,) => {
                                 return (
                                     <tr>
                                         <td>{producto.idProducto}</td>
