@@ -40,12 +40,30 @@ const GestionarProductos = () => {
     const [GestionarProductos, setGestionarProductos] = useState([]);
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
     //const [colorBoton,setColorBoton] = useState();
 
-
+    /**** PENDIENTE DE AJUSTE ¿SE OBTIENE productos O GestionarProductos
+     * 
     useEffect(() => {
+        console.log('consulta', ejecutarConsulta);
+        if (ejecutarConsulta) {
+          obtenerGestionarProductos(setGestionarProductos, setEjecutarConsulta);
+        }
+      }, [ejecutarConsulta]);
+      */
+
+    //obtener lista desde el back 
+    useEffect(() => {
+    if (mostrarTablaProductos) {
+        setEjecutarConsulta(true);
+    }
+    }, [mostrarTablaProductos]);
+      
+
+    /*useEffect(() => {
         setGestionarProductos(GestionarProductosBackend);
-    }, []);
+    }, []);*/
 
     useEffect(() => {
         if (mostrarTablaProductos) {
@@ -59,21 +77,25 @@ const GestionarProductos = () => {
         
     return (
         <div>
-            <button
-            onClick={() => {
-                setMostrarTablaProductos(!mostrarTablaProductos)
-            }}
-            className="botonCrear">                
-            {textoBoton}
-            </button>
-            {mostrarTablaProductos ? (<TablaProductos listaProductos={GestionarProductos}/>
+            <div>
+                <button
+                onClick={() => {
+                    setMostrarTablaProductos(!mostrarTablaProductos)
+                }}
+                className="botonCrear">                
+                {textoBoton}
+                </button>
+            </div>
+
+            {mostrarTablaProductos ? (
+            <TablaProductos listaProductos={GestionarProductos}
+            setEjecutarConsulta={setEjecutarConsulta}/>
             ) : ( <RegistrarProductos
                 setMostrarTablaProductos={setMostrarTablaProductos}
                 listaProductos={GestionarProductos}
-                setGestionarProductos={setGestionarProductos}
-            />
+                setGestionarProductos={setGestionarProductos}/>
             )}
-            <ToastContainer position='bottom-center' autoClose={4000} />
+            <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
     )
 }    
@@ -83,6 +105,8 @@ const TablaProductos = ({ listaProductos }) => {
     useEffect(() => {
         console.log("listado de productos en la tabla",listaProductos)
     }, [listaProductos]);
+
+    // ******** AQUÍ VA el useEffect de filtro y búsqueda *********
     
     return (
         <div>
@@ -107,12 +131,15 @@ const TablaProductos = ({ listaProductos }) => {
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Actividad</th>
+                                <th scope="col">Acción</th>
                             </tr>
                             </thead>
                         <tbody>
                             {listaProductos.map((producto) => {
                                 //despues de un .map poner key (utilizar la librería nanoid)
+                                /* Este código está repetido y modificado en fila productos
+                                -incluyendo la línea de arriba {lista producto.map(..........
+
                                 return (
                                     <tr key={nanoid()}>
                                         <td>{producto.idProducto}</td>
@@ -125,18 +152,131 @@ const TablaProductos = ({ listaProductos }) => {
                                             </button>
                                         </td>
                                     </tr>
-                                );
+                                );*/
                             })}
                         </tbody>
                     </table>
-                </div>
+                </div>                
             </section>
             <Footer/>
         </div>
     );
 };
 
-/*------------ Crear Nuevos Productos --------------*/
+
+/*------------ Fila Productos - donde se pueden editar --------------*/
+
+const FilaProductos = ({ producto, setEjecutarConsulta }) => {
+    const [edit, setEdit] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [infoNuevoProducto, setInfoProducto] = useState({
+
+        idProducto: producto.idProducto,
+        descripcion: producto.descripcion,
+        valor: producto.valor,
+        estado: producto.estado,
+    });
+
+    const actualizarProducto = async () => {
+    //enviar la info al back y se define el método POST
+        const options = {
+            method: 'PATCH',
+            //****** AJUSTAR LA URL ******
+            url: `http://localhost:5000/GestionarProductos/${producto.idProducto}/`,
+            headers: { 'Content-Type': 'application/json' },
+            data: { ...infoNuevoProducto },
+        };
+    //async trabaja con await axios 
+    await axios
+        .request(options)
+        .then(function (response) {
+            console.log(response.data);
+            toast.success('Producto editado con éxito');
+            setEdit(false);
+            setEjecutarConsulta(true);
+        })
+        .catch(function (error) {
+            toast.error('Error editando el producto');
+            console.error(error);
+        });
+    };
+/******* Código con -input- para editar los producto **********/
+
+    return (
+        <tr>{edit ? (
+            /****** El idProducto no se modifica - preguntar si id se crea automaticamente
+            o se puede asignar manual ******/
+            <>
+              <td>{infoNuevoProducto.idProducto}</td>
+              <td>
+                <input
+                  type='text'
+                  value={infoNuevoProducto.idProducto}
+                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, idProducto: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type='text'
+                  value={infoNuevoProducto.descripcion}
+                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripción: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type='text'
+                  value={infoNuevoProducto.valor}
+                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type='text'
+                  value={infoNuevoProducto.estado}
+                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })}
+                />
+              </td>
+            </>
+        ) : (
+            <>
+                <td>{producto.idProducto}</td>
+                <td>{producto.despricción}</td>
+                <td>{producto.valor}</td>
+                <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>
+                    {producto.estado}</label></td>
+                <td><button className="editButton">
+                    <span className="material-icons">edit</span>
+                    </button>
+                </td>
+            </>
+            )}
+            <td>
+                <div>
+                    {edit ? (
+                        <>
+                        <i
+                        onClick={() => actualizarProducto()}
+                        className="checkActualizarButton"
+                        />
+                        <i onClick={() => setEdit(!edit)}
+                        className="cancelEditButton"/>
+                        </>
+                    ) : (
+                        /**** RESOLVER SI AQUÍ VA INCLUIDO EL CONDICIONAL
+                        Y EL BOTON DE EDITAR ESTADO *****/
+                        <>
+                        <i onClick={() => setEdit(!edit)}
+                        className=""/>
+                        </>
+                    )}
+                </div>
+            </td>
+        </tr>
+    );
+};
+               
+
+/*------------ FORMULARIO Crear Nuevos Productos --------------*/
 
 const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGestionarProductos }) => {
     const form = useRef(null);
@@ -160,6 +300,7 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
         };
 
         //await para funciones asincronas *** axios para conectar a la BD
+        // Mensajes de validación
         await axios 
             .request(options)
             .then(function (response) {
