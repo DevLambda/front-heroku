@@ -171,18 +171,20 @@ font-family: 'Be Vietnam Pro', sans-serif;
     display: grid;
     color:#491391;
     margin-left: 4.4em;
-    align-self: flex-start;
+
 }
 
 .tituloSeccion {
     font-size: 33px;
     font-weight: 800;
+    display: flex;
 }
 
 .descripcionSeccion {
     margin-top: 0.2em;
     font-weight: 700;
     font-size: 16px;
+    display: flex;
 }
 
 /*------------ Gestionar Productos / Landing(Tabla) --------------*/
@@ -237,7 +239,9 @@ font-family: 'Be Vietnam Pro', sans-serif;
     height: 42px;
     width: 260px;
     cursor: pointer;
-
+    right: 4.8em;
+    top: 15em;
+    position: fixed;
 }
 
 .botonCrear:hover {
@@ -278,6 +282,7 @@ thead th, tfoot th {
     font-weight: 700;
     color:#4D4D4D;
     text-align: left;
+    ;
 }
 
 thead, tfoot {
@@ -301,7 +306,7 @@ thead th:nth-child(4) {
 }
 
 thead th:nth-child(5) {
-    width: 20%;
+    width: 10%;
 }
 
 th, td {
@@ -338,6 +343,15 @@ tbody td {
     font-size: 13px;
     font-weight: 600;
     color:#ce2323;
+    padding: 6px;
+}
+
+.badgeInProgress {
+    border-radius: 10px;
+    border: 1px solid #f89b22;
+    font-size: 13px;
+    font-weight: 600;
+    color:#f89b22;
     padding: 6px;
 }
 
@@ -433,6 +447,10 @@ background-color: #ff790a;
     border-collapse: collapse;
 }
 
+.usersTable th{
+    white-space:nowrap;
+}
+
 /*------------FOOTER--------------*/
 .footer {
   color: #491391;
@@ -446,4 +464,146 @@ background-color: #ff790a;
 
 }
 
+  /*============ Ventas ============*/
+  .datos_cliente, .datos_venta, .title_page, .tbl_venta{
+	width: 100%;
+	max-width: 900px;
+	margin: auto;
+	margin-bottom: 20px;
+}
+.btn_new{
+	border: 1px solid #FFFFFF;
+	color: #FFFFFF;
+	border-radius: 10px;
+	opacity: 1;
+	padding: 5px;
+	background-color: #401081;
+	height: 20px; 
+	width: 130px;
+	cursor: pointer;
+	align-content: center;
+	margin-top:7px;
+}
+
+.div_registro_cliente{
+	border: 1px solid #FFFFFF;
+	color: #FFFFFF;
+	border-radius: 10px;
+	opacity: 1;
+	padding: 5px;
+	background-color: #401081;
+	height: 20px; 
+	width: 130px;
+	cursor: pointer;
+	align-content: center;
+	margin-top:7px;
+}
+
+#detalle_venta tr{
+	background-color: #F0F0F0 !important;
+}
+#detalle_venta td{
+	border-bottom: 1px solid #FFF;
+	
+}
+.datos{
+	background-color: #e3ecef;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: 2px solid #78909C;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.action_cliente{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+}
+
+.datos label{
+	margin: 5px auto;
+}
+.wd40{
+	width: 40%;
+}
+.wd50{
+	width: 50%;
+}
+.wd60{
+	width: 60%;
+}
+.wd100{
+	width: 100%;
+}
+.btn_ok{
+	background-color: #f36a6a;
+	border: 0;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 5px;
+	margin: 0 3px;
+	height: 20px; 
+	width: 130px;
+	color: #FFF;
+	opacity: 1;
+
+}
+.btn_new{
+	background-color: #401081;
+	border: 1px;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 5px;
+	margin: 10px 1em 0 auto;
+	height: 20px; 
+	width: 130px;
+	color: #FFF;
+	opacity: 1;
+}
+#div_registro_cliente, #add_product_venta{
+	display: none;
+}
+.displayN{
+	display: none;
+}
+
+.tbl_venta{
+	max-width: 900px;
+	margin: auto;
+	
+}
+.tbl_venta tfoot td{
+	font-weight: bold;
+}
+.textright{
+	text-align: right;
+}
+.textcenter{
+	text-align: center;
+}
+.textleft{
+	text-align: left;
+}
+.link_add{
+	background-color: #401081;
+	border: 0;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 5px;
+	margin: 0 3px;
+	height: 20px; 
+	width: 130px;
+	color: #FFF;
+	opacity: 1;
+}
 

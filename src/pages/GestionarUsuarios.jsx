@@ -104,9 +104,4 @@ const GestionarUsuarios = () => {
             
     )};    
     
-
-
-    
-
-
 export default GestionarUsuarios;

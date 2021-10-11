@@ -40,7 +40,6 @@ const GestionarProductos = () => {
     const [GestionarProductos, setGestionarProductos] = useState([]);
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
-   
     //const [colorBoton,setColorBoton] = useState();
 
 
@@ -180,7 +179,9 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
         <div>
             <Header/>
             <div className="textosInicioSeccion">
-            <div className="tituloSeccion">Agregar nuevo producto</div>
+            <div className="tituloSeccion">
+                <span>Agregar nuevo producto</span>
+                    </div>
             <div className="descripcionSeccion">Ingresa los datos del nuevo producto.</div>
         </div>
             <div className="contenedorFormulario">
