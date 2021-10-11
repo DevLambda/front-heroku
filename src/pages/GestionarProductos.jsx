@@ -5,42 +5,31 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
 
+
 const GestionarProductosBackend = [
     {
         idProducto: "0001",
         descripcion: "Bonsai Komono",
         valor: "$120.000",
-        estado: "Disponible",
+        estado: "No Disponible",
     },
     {
         idProducto: "0002",
         descripcion: "Bonsai Shito",
         valor: "$220.000",
-        estado: "No Disponible",
+        estado: "Disponible",
     },
     {
         idProducto: "0003",
         descripcion: "Bonsai Kotate",
         valor: "$150.000",
-        estado: "",
+        estado: "Disponible",
     },
     {
         idProducto: "0004",
         descripcion: "Bonsai Shohin",
         valor: "$110.000",
-        estado: "",
-    },
-    {
-        idProducto: "0005",
-        descripcion: "Bonsai 1",
-        valor: "$150.000",
-        estado: "",
-    },
-    {
-        idProducto: "0006",
-        descripcion: "Bonsai 2",
-        valor: "$120.000",
-        estado: "",
+        estado: "Disponible",
     },
 ]
 
@@ -49,7 +38,7 @@ const GestionarProductos = () => {
     const [GestionarProductos, setGestionarProductos] = useState([]);
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
-    const [estado, setEstado] = useState('Disponible');
+   
     //const [colorBoton,setColorBoton] = useState();
 
 
@@ -83,7 +72,7 @@ const GestionarProductos = () => {
                 setGestionarProductos={setGestionarProductos}
             />
             )}
-            <ToastContainer position='bottom-center' autoClose={5000} />
+            <ToastContainer position='bottom-center' autoClose={4000} />
         </div>
     )
 }    
@@ -121,13 +110,14 @@ const TablaProductos = ({ listaProductos }) => {
                             </tr>
                             </thead>
                         <tbody>
-                            {listaProductos.map((producto, estaDisponible) => {
+                            {listaProductos.map((producto) => {
                                 return (
                                     <tr>
                                         <td>{producto.idProducto}</td>
                                         <td>{producto.descripcion}</td>
                                         <td>{producto.valor}</td>
-                                        <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>{producto.estado}</label></td>
+                                        <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>
+                                            {producto.estado}</label></td>
                                         <td><button className="editButton">
                                             <span className="material-icons">edit</span>
                                             </button>

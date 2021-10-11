@@ -226,6 +226,9 @@ font-family: 'Be Vietnam Pro', sans-serif;
     background-color: #0671DD
 }
 .botonCrear {
+    position: absolute;
+    top: 37%;
+    right: 4%;
     background-color: #1BC628;
     font-size: 16px;
     font-weight: 600;
@@ -233,7 +236,7 @@ font-family: 'Be Vietnam Pro', sans-serif;
     border: 0px;
     border-radius: 10px;
     height: 42px;
-    width: 250px;
+    width: 260px;
     cursor: pointer;
     right: 4.8em;
     top: 15em;
@@ -253,6 +256,7 @@ font-family: 'Be Vietnam Pro', sans-serif;
 .productsTable{
     margin-top: 1em;
     margin-left: 4.4em;
+    margin-bottom: 4rem;
 }
 
 table {
@@ -354,26 +358,26 @@ tbody td {
     text-align: center;
 }
 .editButton:hover {
-    background-color: #424242;
+    background-color: #5e5e5e;
 }
 
 /*------------ Gestionar Productos / Registrar Nuevos Productos --------------*/
 
 
 .contenedorFormulario {
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    max-width: 600px;
+    margin-left: 3.1rem;
     border-radius: 5px;
     padding: 20px;
-    margin-left: 3.4em;
-    margin-right: 9em;
   }
 
 .label {
     font-size: 14px;
     font-weight: 400;
-    color:#4D4D4D;
+    color:#686868;
     padding-bottom: 0.6em;
 }
 
@@ -408,7 +412,7 @@ background-color: #00ac00;
 /*-------- Botón guardar y editar Formulario Producto--------*/
 
 .botonGuardarProducto {
-    background-color: #1BC628;
+    background-color: #F99225;
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -420,7 +424,7 @@ background-color: #00ac00;
     }
     
 .botonGuardarProducto:hover {
-background-color: #00ac00;
+background-color: #ff790a;
 }
 
 /*--------Tabla usuarios--------*/
@@ -441,9 +445,9 @@ background-color: #00ac00;
 .footer {
   color: #491391;
   font-size: 12px;
-  position:fixed;
-  left:0px;
-  bottom:0px;
+  position: fixed;
+  bottom: 0%;
+  left: 1%;
   opacity: 1;
   background-color: #ffffff;
   padding: 10px;

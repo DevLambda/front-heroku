@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Filtros from '../components/Filtros'
 
-{/*const GestionarVentasBackend = [
+const GestionarVentasBackend = [
     {
         idVenta: "0001",
         fecha_venta:"08/10/2021",
@@ -45,9 +45,16 @@ import Filtros from '../components/Filtros'
         idVendedor: "001",
     },
 ]
-*/}
+
 
 const Ventas = () => {
+
+    const [Ventas, setVentas] = useState([]);
+
+    useEffect(() => {
+        setVentas(GestionarVentasBackend);
+    }, []);
+
     return (
     <div>
         <Header/> 
@@ -85,25 +92,23 @@ const Ventas = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* <div className="tablaVentasCampos"> */}
-                                {/* listaUsuarios={GestionarUsuarios}
-                                        setGestionarUsuarios={setGestionarUsuarios}
-                                        {listaUsuarios.map((usuario) => {
+                                        {GestionarVentasBackend.map((ventas) => {
                                         return(
                                         <tr>
-                                                <td>{usuario.id_usuario}</td>
-                                                <td>{usuario.given_name}</td>
-                                                <td>{usuario.family_name}</td>
-                                                <td>{usuario.rol}</td>
-                                                <td>{usuario.email}</td>
-                                                <td>{usuario.cellphone}</td>
-                                                <td><label className={usuario.estado==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>{usuario.estado}</label></td>
+                                                <td>{ventas.idVenta}</td>
+                                                <td>{ventas.fecha_venta}</td>
+                                                <td>{ventas.fecha_pago}</td>
+                                                <td><label className={ventas.estado_venta==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>{ventas.estado_venta}</label></td>
+                                                <td>{ventas.idCliente}</td>
+                                                <td>{ventas.nombre_cliente}</td>
+                                                <td>{ventas.total_venta}</td>
+                                                <td>{ventas.idVendedor}</td>
                                                 <td><button className="editButton">
                                                     <span className="material-icons">edit</span></button>
                                                 </td>
                                             </tr>
                                         );
-                                            })} */}
+                                            })}
                             </tbody>
                         </table>   
                     </div>
