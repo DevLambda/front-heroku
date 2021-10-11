@@ -8,7 +8,7 @@ import Filtros from '../components/Filtros'
 import { nanoid } from 'nanoid';
 
 
-const GestionarProductosBackend = [
+/*const GestionarProductosBackend = [
     {
         idProducto: "0001",
         descripcion: "Bonsai Komono",
@@ -33,7 +33,7 @@ const GestionarProductosBackend = [
         valor: "$110.000",
         estado: "Disponible",
     },
-]
+]*/
 
 const GestionarProductos = () => {
 
@@ -43,21 +43,22 @@ const GestionarProductos = () => {
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
     //const [colorBoton,setColorBoton] = useState();
 
-    /**** PENDIENTE DE AJUSTE ¿SE OBTIENE productos O GestionarProductos
-     * 
+    /**** PENDIENTE DE AJUSTE - SE OBTIENE productos O GestionarProductos -
+    * y donde se define obtenerProductos
+    * 
     useEffect(() => {
         console.log('consulta', ejecutarConsulta);
         if (ejecutarConsulta) {
-          obtenerGestionarProductos(setGestionarProductos, setEjecutarConsulta);
+          obtenerProductos(setGestionarProductos, setEjecutarConsulta);
         }
-      }, [ejecutarConsulta]);
-      */
+    }, [ejecutarConsulta]);
+    */
 
     //obtener lista desde el back 
-    useEffect(() => {
-    if (mostrarTablaProductos) {
-        setEjecutarConsulta(true);
-    }
+        useEffect(() => {
+        if (mostrarTablaProductos) {
+            setEjecutarConsulta(true);
+        }
     }, [mostrarTablaProductos]);
       
 
@@ -97,16 +98,25 @@ const GestionarProductos = () => {
             )}
             <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
-    )
-}    
+    );
+};    
 /*------------ Tabla Productos --------------*/
 
+
 const TablaProductos = ({ listaProductos }) => {
-    useEffect(() => {
-        console.log("listado de productos en la tabla",listaProductos)
-    }, [listaProductos]);
+    const [busqueda, setBusqueda] = useState('');
+    const [productosFiltrados, setProductosFiltrados] = useState(listaProductos);
 
     // ******** AQUÍ VA el useEffect de filtro y búsqueda *********
+
+    useEffect(() => {
+        setProductosFiltrados(
+          listaProductos.filter((elemento) => {
+            return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+          })
+        );
+
+    }, [busqueda, listaProductos]);
     
     return (
         <div>
@@ -119,7 +129,10 @@ const TablaProductos = ({ listaProductos }) => {
                 <ul className="posicionBuscador"> 
                     <li>
                         <div className="label">Ingresa el ID del producto:</div>
-                        <Filtros/>
+                        <Filtros
+                        //****** CÓDIGO PARA BUSCAR ******/
+                        value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)} />
                     </li>
                 </ul>
                 <div className="productsTable">
@@ -135,28 +148,34 @@ const TablaProductos = ({ listaProductos }) => {
                             </tr>
                             </thead>
                         <tbody>
-                            {listaProductos.map((producto) => {
-                                //despues de un .map poner key (utilizar la librería nanoid)
-                                /* Este código está repetido y modificado en fila productos
-                                -incluyendo la línea de arriba {lista producto.map(..........
+                            {productosFiltrados.map((producto) => {
 
+                                /* ****** POR AJUSTAR ********
+                                
                                 return (
-                                    <tr key={nanoid()}>
-                                        <td>{producto.idProducto}</td>
-                                        <td>{producto.descripcion}</td>
-                                        <td>{producto.valor}</td>
-                                        <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>
-                                            {producto.estado}</label></td>
-                                        <td><button className="editButton">
-                                            <span className="material-icons">edit</span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                );*/
+                                <FilaProducto
+                                        key={nanoid()}
+                                        producto={producto}
+                                        setEjecutarConsulta={setEjecutarConsulta}
+                                    />
+                                );
+                                */
                             })}
                         </tbody>
                     </table>
-                </div>                
+                </div>
+                <div>
+                    {productosFiltrados.map((el) => {
+                        return (
+                        <div>
+                        <span>{el.idProducto}</span>
+                        <span>{el.descripcion}</span>
+                        <span>{el.valor}</span>
+                        <span>{el.estado}</span>
+                        </div>  
+                        );
+                    })}
+                </div>                 
             </section>
             <Footer/>
         </div>
@@ -166,10 +185,10 @@ const TablaProductos = ({ listaProductos }) => {
 
 /*------------ Fila Productos - donde se pueden editar --------------*/
 
-const FilaProductos = ({ producto, setEjecutarConsulta }) => {
+const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     const [edit, setEdit] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [infoNuevoProducto, setInfoProducto] = useState({
+    //const [openDialog, setOpenDialog] = useState(false);
+    const [infoNuevoProducto, setInfoNuevoProducto] = useState({
 
         idProducto: producto.idProducto,
         descripcion: producto.descripcion,
@@ -219,7 +238,7 @@ const FilaProductos = ({ producto, setEjecutarConsulta }) => {
                 <input
                   type='text'
                   value={infoNuevoProducto.descripcion}
-                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripción: e.target.value })}
+                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripcion: e.target.value })}
                 />
               </td>
               <td>
@@ -240,7 +259,7 @@ const FilaProductos = ({ producto, setEjecutarConsulta }) => {
         ) : (
             <>
                 <td>{producto.idProducto}</td>
-                <td>{producto.despricción}</td>
+                <td>{producto.descripcion}</td>
                 <td>{producto.valor}</td>
                 <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>
                     {producto.estado}</label></td>
