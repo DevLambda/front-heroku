@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Filtros from '../components/Filtros'
@@ -8,7 +8,7 @@ const GestionarVentasBackend = [
         idVenta: "0001",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
-        estado_venta: "Cancelada",
+        estado_venta: "Entregada",
         idCliente:'0001',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
@@ -28,7 +28,7 @@ const GestionarVentasBackend = [
         idVenta: "0003",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
-        estado_venta: "Cancelada",
+        estado_venta: "En Progreso",
         idCliente:'0001',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
@@ -38,7 +38,7 @@ const GestionarVentasBackend = [
         idVenta: "0004",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
-        estado_venta: "Cancelada",
+        estado_venta: "En Progreso",
         idCliente:'0001',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
@@ -98,7 +98,9 @@ const Ventas = () => {
                                                 <td>{ventas.idVenta}</td>
                                                 <td>{ventas.fecha_venta}</td>
                                                 <td>{ventas.fecha_pago}</td>
-                                                <td><label className={ventas.estado_venta==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>{ventas.estado_venta}</label></td>
+                                                <td><label className=
+                                                {ventas.estado_venta==='Entregada' ? "badgeAvailable" : ventas.estado_venta==='En Progreso' ? "badgeInProgress" : "badgeNotAvailable"} >{ventas.estado_venta}</label>
+                                                </td>
                                                 <td>{ventas.idCliente}</td>
                                                 <td>{ventas.nombre_cliente}</td>
                                                 <td>{ventas.total_venta}</td>
@@ -106,9 +108,9 @@ const Ventas = () => {
                                                 <td><button className="editButton">
                                                     <span className="material-icons">edit</span></button>
                                                 </td>
-                                            </tr>
+                                        </tr>
                                         );
-                                            })}
+                                        })}
                             </tbody>
                         </table>   
                     </div>

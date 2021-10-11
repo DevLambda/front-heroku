@@ -345,6 +345,15 @@ tbody td {
     padding: 6px;
 }
 
+.badgeInProgress {
+    border-radius: 10px;
+    border: 1px solid #f89b22;
+    font-size: 13px;
+    font-weight: 600;
+    color:#f89b22;
+    padding: 6px;
+}
+
 .editButton {
     background-color: #401081;
     font-weight: 600;
