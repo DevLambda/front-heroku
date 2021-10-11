@@ -208,11 +208,12 @@ font-family: 'Be Vietnam Pro', sans-serif;
      border-radius: 10px;
 }
 .botonBuscar {
+    align-content: center;
+    align-items: center;
     background-color: #2C90F4;
     font-size: 16px;
     font-weight: 600;
     color: white;
-    justify-items: center;
     border: 0px;
     border-radius: 10px;
     height: 42px;

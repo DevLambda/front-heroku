@@ -75,7 +75,7 @@ const GestionarUsuarios = () => {
                                     <th scope="col">Correo</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Estado solicitud</th>
-                                    <th scope="col">Accion</th>    
+                                    <th scope="col">Acción</th> 
                                 </tr>
                                 </thead>
                             <tbody>

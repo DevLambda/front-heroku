@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
+import { nanoid } from 'nanoid';
 
 
 const GestionarProductosBackend = [
@@ -111,8 +113,9 @@ const TablaProductos = ({ listaProductos }) => {
                             </thead>
                         <tbody>
                             {listaProductos.map((producto) => {
+                                //despues de un .map poner key (utilizar la librería nanoid)
                                 return (
-                                    <tr>
+                                    <tr key={nanoid()}>
                                         <td>{producto.idProducto}</td>
                                         <td>{producto.descripcion}</td>
                                         <td>{producto.valor}</td>
@@ -139,7 +142,8 @@ const TablaProductos = ({ listaProductos }) => {
 const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGestionarProductos }) => {
     const form = useRef(null);
 
-    const submitForm = (e) => {
+    //async trabaja con await axios    
+    const submitForm = async (e) => {
         e.preventDefault();
         const fd = new FormData(form.current);
 
@@ -147,11 +151,30 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
         fd.forEach((value, key) => {
             nuevoProducto[key] = value;
         });
+        //se define el método POST y la url 5000 (AQUÍ SE MUESTRAN DATOS)
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/producto/nuevo/',
+            headers: { 'Content-Type': 'application/json' },
+            data: { idProducto: nuevoProducto.idProducto, descripcion: nuevoProducto.descripcion,
+                valor: nuevoProducto.valor, estado: nuevoProducto.estado },
+        };
 
+        //await para funciones asincronas *** axios para conectar a la BD
+        await axios 
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+                toast.success('Producto creado con éxito');
+            })
+            .catch(function (error) {
+                console.error(error);
+                toast.error('Error creando el producto');
+            });
+      
         setMostrarTablaProductos(true);
-        setGestionarProductos([...listaProductos, nuevoProducto]);
-        toast.success('Producto creado con éxito');
     };
+      
     
     return(
         <div>
