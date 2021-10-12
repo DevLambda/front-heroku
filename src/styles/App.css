@@ -403,6 +403,18 @@ input[type=text], select, textarea {
     resize: vertical
 }
 
+input[type=number], select, textarea {
+    font-size: 14px;
+    width: 40em;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    resize: vertical
+}
+
 input[type=submit] {
 background-color: #1BC628;
 color: white;

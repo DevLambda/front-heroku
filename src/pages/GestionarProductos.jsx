@@ -1,58 +1,37 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Filtros from '../components/Filtros'
+import { obtenerProductos, registrarProducto, editarProducto} from '../utils/api';
 import { nanoid } from 'nanoid';
 
 
-/*const GestionarProductosBackend = [
-    {
-        idProducto: "0001",
-        descripcion: "Bonsai Komono",
-        valor: "$120.000",
-        estado: "No Disponible",
-    },
-    {
-        idProducto: "0002",
-        descripcion: "Bonsai Shito",
-        valor: "$220.000",
-        estado: "Disponible",
-    },
-    {
-        idProducto: "0003",
-        descripcion: "Bonsai Kotate",
-        valor: "$150.000",
-        estado: "Disponible",
-    },
-    {
-        idProducto: "0004",
-        descripcion: "Bonsai Shohin",
-        valor: "$110.000",
-        estado: "Disponible",
-    },
-]*/
-
 const GestionarProductos = () => {
 
-    const [GestionarProductos, setGestionarProductos] = useState([]);
+    const [productos, setProductos] = useState([]);
     const [mostrarTablaProductos, setMostrarTablaProductos] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Crear nuevo Producto');
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
     //const [colorBoton,setColorBoton] = useState();
 
-    /**** PENDIENTE DE AJUSTE - SE OBTIENE productos O GestionarProductos -
-    * y donde se define obtenerProductos
-    * 
+  
     useEffect(() => {
         console.log('consulta', ejecutarConsulta);
         if (ejecutarConsulta) {
-          obtenerProductos(setGestionarProductos, setEjecutarConsulta);
+            obtenerProductos((response) => {
+                console.log('la respuesta que se recibio fue', response);
+                setProductos(response.data);
+            },
+            (error) => {
+                console.error('Salio un error:', error);
+            }
+            );
+            setEjecutarConsulta(false); 
         }
     }, [ejecutarConsulta]);
-    */
+    
 
     //obtener lista desde el back 
         useEffect(() => {
@@ -89,12 +68,12 @@ const GestionarProductos = () => {
             </div>
 
             {mostrarTablaProductos ? (
-            <TablaProductos listaProductos={GestionarProductos}
+            <TablaProductos listaProductos={productos}
             setEjecutarConsulta={setEjecutarConsulta}/>
             ) : ( <RegistrarProductos
                 setMostrarTablaProductos={setMostrarTablaProductos}
-                listaProductos={GestionarProductos}
-                setGestionarProductos={setGestionarProductos}/>
+                listaProductos={productos}
+                setProductos={setProductos}/>
             )}
             <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
@@ -103,7 +82,7 @@ const GestionarProductos = () => {
 /*------------ Tabla Productos --------------*/
 
 
-const TablaProductos = ({ listaProductos }) => {
+const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
     const [busqueda, setBusqueda] = useState('');
     const [productosFiltrados, setProductosFiltrados] = useState(listaProductos);
 
@@ -150,16 +129,15 @@ const TablaProductos = ({ listaProductos }) => {
                         <tbody>
                             {productosFiltrados.map((producto) => {
 
-                                /* ****** POR AJUSTAR ********
-                                
+                                /* ****** POR VERIFICAR ********
+                                */
                                 return (
                                 <FilaProducto
                                         key={nanoid()}
                                         producto={producto}
                                         setEjecutarConsulta={setEjecutarConsulta}
                                     />
-                                );
-                                */
+                                );                   
                             })}
                         </tbody>
                     </table>
@@ -197,39 +175,42 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     });
 
     const actualizarProducto = async () => {
-    //enviar la info al back y se define el método POST
-        const options = {
-            method: 'PATCH',
-            //****** AJUSTAR LA URL ******
-            url: `http://localhost:5000/GestionarProductos/${producto.idProducto}/`,
-            headers: { 'Content-Type': 'application/json' },
-            data: { ...infoNuevoProducto },
-        };
-    //async trabaja con await axios 
-    await axios
-        .request(options)
-        .then(function (response) {
+    //enviar la info al back y se define el método POST con import axios de utils/api
+    //****** AJUSTAR LA URL ******
+    //async trabaja con await axios
+    //enviar la info al back
+    
+        await editarProducto(
+            producto._id,
+            {
+                idProducto: infoNuevoProducto.idProducto,
+                descripcion: infoNuevoProducto.descripcion,
+                valor: infoNuevoProducto.valor,
+                estado: infoNuevoProducto.estado,
+            },
+          (response) => {
             console.log(response.data);
             toast.success('Producto editado con éxito');
             setEdit(false);
             setEjecutarConsulta(true);
-        })
-        .catch(function (error) {
+          },
+          (error) => {
             toast.error('Error editando el producto');
             console.error(error);
-        });
-    };
+          }
+        );
+      };
+
 /******* Código con -input- para editar los producto **********/
 
     return (
         <tr>{edit ? (
-            /****** El idProducto no se modifica - preguntar si id se crea automaticamente
-            o se puede asignar manual ******/
+            /****** El idProducto no se modifica - se asigna manual idProducto******/
             <>
-              <td>{infoNuevoProducto.idProducto}</td>
+              <td>{infoNuevoProducto._id}</td>
               <td>
                 <input
-                  type='text'
+                  type='number'
                   value={infoNuevoProducto.idProducto}
                   onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, idProducto: e.target.value })}
                 />
@@ -243,7 +224,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               </td>
               <td>
                 <input
-                  type='text'
+                  type='number'
                   value={infoNuevoProducto.valor}
                   onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })}
                 />
@@ -297,7 +278,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
 
 /*------------ FORMULARIO Crear Nuevos Productos --------------*/
 
-const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGestionarProductos }) => {
+const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setProductos }) => {
     const form = useRef(null);
 
     //async trabaja con await axios    
@@ -310,26 +291,22 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
             nuevoProducto[key] = value;
         });
         //se define el método POST y la url 5000 (AQUÍ SE MUESTRAN DATOS)
-        const options = {
-            method: 'POST',
-            url: 'http://localhost:5000/producto/nuevo/',
-            headers: { 'Content-Type': 'application/json' },
-            data: { idProducto: nuevoProducto.idProducto, descripcion: nuevoProducto.descripcion,
-                valor: nuevoProducto.valor, estado: nuevoProducto.estado },
-        };
-
-        //await para funciones asincronas *** axios para conectar a la BD
-        // Mensajes de validación
-        await axios 
-            .request(options)
-            .then(function (response) {
-                console.log(response.data);
-                toast.success('Producto creado con éxito');
-            })
-            .catch(function (error) {
-                console.error(error);
-                toast.error('Error creando el producto');
-            });
+        await registrarProducto(
+            {
+                idProducto: nuevoProducto.idProducto,
+                descripcion: nuevoProducto.descripcion,
+                valor: nuevoProducto.valor,
+                estado: nuevoProducto.estado,
+            },
+            (response) => {
+              console.log(response.data);
+              toast.success('Nuevo producto agregado con éxito');
+            },
+            (error) => {
+              console.error(error);
+              toast.error('Error agregando el producto');
+            }
+          );
       
         setMostrarTablaProductos(true);
     };
@@ -348,7 +325,7 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
             <form ref={form} onSubmit={submitForm} className='flex flex-col'>
 
                 <label htmlFor="id">ID de Producto
-                <input type="text" name="idProducto"
+                <input type="number" name="idProducto"
                 placeholder="Ejemplo: 0001" required/>
                 </label>
             
@@ -365,7 +342,7 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setGesti
                 </label>
 
                 <label htmlFor="valorProducto">Valor producto
-                <input type="text" name="valor"
+                <input type="number" name="valor"
                 placeholder="Ingresa el valor en pesos..." required/>
                 </label>
             
