@@ -484,8 +484,8 @@ background-color: #ff790a;
   }
 
   .datos_cliente, .datos_venta, .title_page, .tbl_venta{
-	width: 100%;
-	max-width: 900px;
+	/* width: 100%;
+	max-width: 900px; */
 	margin: auto;
 	margin-bottom: 20px;
 }
@@ -513,6 +513,7 @@ background-color: #ff790a;
     resize: vertical;
     margin-left: 8px;
 }
+
 .btn_new{
 	border: 1px solid #FFFFFF;
 	color: #FFFFFF;
@@ -563,9 +564,14 @@ background-color: #ff790a;
 #label{
  margin-left: 8px;
 }
+
  h4{
      margin-bottom: auto;
+     color:#401081;
+     font-size:16px;
+     margin-top: 2em;
  }
+
 .action_cliente{
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -622,10 +628,9 @@ background-color: #ff790a;
 	display: none;
 }
 
-.tbl_venta{
-	max-width: 900px;
-	margin: auto;
-	
+#tbl_venta{
+	width: 73em;
+	margin: 1em;	
 }
 .tbl_venta tfoot td{
 	font-weight: bold;

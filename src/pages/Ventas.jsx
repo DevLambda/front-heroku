@@ -60,7 +60,7 @@ const Ventas = () =>{
     useEffect(() => {
         if (mostrarTablaVentas) {
             setTextoBoton('Registrar Venta');
-        } else {   
+        } else {
             setTextoBoton('Volver a Gestionar Ventas');
             //setColorBoton();
         }
@@ -72,11 +72,11 @@ const Ventas = () =>{
         onClick={() => {
             setMostrarTablaVentas(!mostrarTablaVentas)
         }}
-        className="botonCrear">                
+        className="botonCrear">
         {textoBoton}
         </button>
         {mostrarTablaVentas ? (<TablaVentas listaVentas={Ventas}/>
-        ) : ( <RegistrarVentas 
+        ) : ( <RegistrarVentas
             setMostrarTablaVentas={setMostrarTablaVentas}
             listaVentas={Ventas}
             setVentas={setVentas}
@@ -100,15 +100,15 @@ const TablaVentas = ({ listaVentas }) => {
 
     return (
     <div>
-        <Header/> 
+        <Header/>
             <div className="textosInicioSeccion">
                 <div className="tituloSeccion">Gestionar Ventas
-                    {/* <span>Gestionar Ventas</span> 
+                    {/* <span>Gestionar Ventas</span>
                     <button  className="botonCrear">Registrar Venta</button>*/}
                 </div>
                 <div className="descripcionSeccion">Consulta el histórico de ventas, actualiza el estado de estas y/o edita la información que requieras. Lo único que no podrás editar es el ID de venta.
             </div>
-    </div> 
+    </div>
         <section>
             <ul className="posicionBuscador">
                 <li>
@@ -131,7 +131,7 @@ const TablaVentas = ({ listaVentas }) => {
                                     <th scope="col">Valor total</th>
                                     <th scope="col">ID Vendedor</th>
                                     <th scope="col"></th>
-        
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -155,10 +155,10 @@ const TablaVentas = ({ listaVentas }) => {
                                         );
                                         })}
                             </tbody>
-                        </table>   
+                        </table>
                     </div>
-                </section>  
-        <Footer/> 
+                </section>
+        <Footer/>
     </div>
     )
 };
@@ -185,7 +185,7 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
     return(
         <div>
             <Header/>
-            
+
             <div className="textosInicioSeccion">
                 <div className="tituloSeccion">
                     <span>Registrar nueva venta</span></div>
@@ -249,17 +249,17 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                   </div>
               </div>
 
-              <table border="1"className="tbl_venta">
+              <table border="1"id="tbl_venta">
                   <thead>
-                      <tr>
+                      {/* <tr>
                           <th width="100px">Código</th>
-                          <th width="150px">Descripción</th> 
+                          <th width="150px">Descripción</th>
                           <th width="150px">Existencia</th>
                           <th width="100px">Cantidad</th>
                           <th class="150px">Precio</th>
                           <th class="150px"> Acción</th>
-                      </tr>
-                      
+                      </tr> */}
+{/* 
                       <tr>
                           <td><input id="input_ventas" type="text" name="txt_cod_producto"/></td>
                           <td id="txt_descripcion">-</td>
@@ -267,7 +267,7 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                           <td><input id="input_ventas" type="text" name="txt_cant_producto" value="0" min="1" disabled/></td>
                           <td id="txt_precio" className="textright">0.00</td>
                           <td><a href="#" className="link_add" id="add_product_venta"><i className="fas fa-plus"></i></a></td>
-                      </tr>
+                      </tr> */}
                       <tr>
                           <th>Código</th>
                           <th colspan="2">Descripción</th>
@@ -305,6 +305,7 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                       </tr>
                   </tfoot>
               </table>
+
             </section>
         <Footer/>
     </div>
