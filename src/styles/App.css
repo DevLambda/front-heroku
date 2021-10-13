@@ -477,11 +477,41 @@ background-color: #ff790a;
 }
 
   /*============ Ventas ============*/
+
+  .contenedorFormVentas{
+      width: max-content;
+      margin-left: 4.5em;
+  }
+
   .datos_cliente, .datos_venta, .title_page, .tbl_venta{
 	width: 100%;
 	max-width: 900px;
 	margin: auto;
 	margin-bottom: 20px;
+}
+
+#input_ventas{
+    font-size: 14px;
+    width: 20em;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    resize: vertical;
+    margin-left: 8px;
+  }
+
+#input_fecha{
+    font-size: 14px;
+    width: 18em;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    resize: vertical;
+    margin-left: 8px;
 }
 .btn_new{
 	border: 1px solid #FFFFFF;
@@ -519,20 +549,23 @@ background-color: #ff790a;
 	
 }
 .datos{
-	background-color: #e3ecef;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
+	background-color: #f8f6f8;
 	display: flex;
-	display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    flex-wrap: wrap;
-    border: 2px solid #78909C;
+    flex-wrap: nowrap;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-top: 10px;
+    width: 73em;
 }
+
+#label{
+ margin-left: 8px;
+}
+ h4{
+     margin-bottom: auto;
+ }
 .action_cliente{
 	display: -webkit-flex;
 	display: -moz-flex;

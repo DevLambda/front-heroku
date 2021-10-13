@@ -191,30 +191,30 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                     <span>Registrar nueva venta</span></div>
                 <div className="descripcionSeccion">Ingresa los datos de la venta a registrar.</div>
             </div>
-            <section id="container">
+            <section className="contenedorFormVentas"id="container">
                 <div className="datos_cliente">
                   <div className="action_cliente">
                       <h4>Datos del cliente</h4>
                       <a href="#" className="btn_new btn_new_cliente"><i className="fas fa-plus"></i>Nuevo Cliente</a>
                   </div>
                   <form ref={form} onSubmit={submitForm} name ="form_new_cliente_venta" id= "form_new_cliente_venta" class="datos">
-                      <input type="hidden" name="action" value="addCliente"/>
-                      <input type="hidden" id="idCliente "name="idCliente" value="" required/>
-                      <div className="wd50">
-                          <label>Cédula</label>
-                          <input type="text" name="ced_cliente" id="ced_cliente"  required/>
+                      <input id="input_ventas" type="hidden" name="action" value="addCliente"/>
+                      <input id="input_ventas" type="hidden" name="idCliente" value="" required/>
+                      <div className="wd20">
+                          <label id="label">Cédula</label>
+                          <input id="input_ventas" type="text" name="ced_cliente" required/>
                       </div>
                       <div className="wd50">
-                          <label>Nombre</label>
-                          <input type="text" name="nom_cliente" id="nom_cliente" disabled required/>
+                          <label id="label">Nombre</label>
+                          <input id="input_ventas" type="text" name="nom_cliente" disabled required/>
                       </div>
                       <div className="wd50">
-                          <label>Teléfono</label>
-                          <input type="text" name="tel_cliente" id="tel_cliente" disabled required/>
+                          <label id="label">Teléfono</label>
+                          <input id="input_ventas" type="text" name="tel_cliente" disabled required/>
                       </div>
                       <div className="wd50">
-                          <label>Dirección</label>
-                          <input type="text" name="dir_cliente" id="dir_cliente" disabled required/>
+                          <label id="label">Dirección</label>
+                          <input id="input_ventas" type="text" name="dir_cliente" disabled required/>
                       </div>
                       <div id="div_registro_cliente" className= "wd100">
                           <button type="submit" className="btn_save"><i className="far fa-save fa-lg"></i>Guardar</button>
@@ -226,23 +226,23 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                   <h4>Datos del  Vendedor</h4>
                   <div className="datos">
                       <div className="wd50">
-                          <label>ID Vendedor</label>
-                          <input type="text" name="idVendedor" id="idVendedor"  required/>
+                          <label id="label">ID Vendedor</label>
+                          <input id="input_ventas" type="text" name="idVendedor" required/>
                       </div>
                       <div className="wd50">
-                          <label>Nombre</label>
-                          <input type="text" name="nom_cliente" id="nom_cliente" disabled required/>
+                          <label id="label">Nombre</label>
+                          <input id="input_ventas" type="text" name="nom_cliente" disabled required/>
                       </div>
                       <div className="wd50">
-                          <label>Fecha de facturación</label>
-                          <input type="date" name="fecha_fact" id="fecha_fact"  required/>
+                          <label id="label">Fecha de facturación</label>
+                          <input id="input_fecha" type="date" name="fecha_fact" required/>
                       </div>
                       <div className="wd50">
-                          <label>fechaPago</label>
-                          <input type="date" name="fecha_pago" id="fecha_pago"  required/>
+                          <label id="label">Fecha de Pago</label>
+                          <input id="input_fecha" type="date" name="fecha_pago" required/>
                       </div>
                       <div className="wd100">
-                          <label>Acciones</label>
+                          <label id="label">Acciones</label>
                           <a href="#" className="btn_ok" id="btn_anular_venta"><i className="fas fa-ban"></i>Anular</a>
                           <a href="#" className="btn_new" id="btn_facturar_venta"><i className="fas fa-edit"></i>Procesar</a>
                       </div>
@@ -261,10 +261,10 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                       </tr>
                       
                       <tr>
-                          <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"/></td>
+                          <td><input id="input_ventas" type="text" name="txt_cod_producto"/></td>
                           <td id="txt_descripcion">-</td>
                           <td id="txt_existencia">-</td>
-                          <td><input type="text" name="txt_cant_producto" id="txt_cod_producto" value="0" min="1" disabled/></td>
+                          <td><input id="input_ventas" type="text" name="txt_cant_producto" value="0" min="1" disabled/></td>
                           <td id="txt_precio" className="textright">0.00</td>
                           <td><a href="#" className="link_add" id="add_product_venta"><i className="fas fa-plus"></i></a></td>
                       </tr>
