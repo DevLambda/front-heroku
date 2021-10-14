@@ -207,12 +207,12 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
         <tr>{edit ? (
             /****** El idProducto no se modifica - se asigna manual idProducto******/
             <>
-              <td>{infoNuevoProducto._id}</td>
+              {/*<td>{infoNuevoProducto._id}</td>*/}
               <td>
                 <input
                   type='number'
                   value={infoNuevoProducto.idProducto}
-                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, idProducto: e.target.value })}
+                  /*onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, idProducto: e.target.value })}*/
                 />
               </td>
               <td>
