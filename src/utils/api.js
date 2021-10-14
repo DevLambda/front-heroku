@@ -1,14 +1,16 @@
 import axios from 'axios';
 
+
 export const obtenerProductos = async (successCallback, errorCallback) => {
-  const options = { method: 'GET', url: 'http://localhost:5000/GestionarProductos/' };
+  const options = { method: 'GET',
+  url: 'http://localhost:3001/productos/' };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
 export const registrarProducto = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
-    url: 'http://localhost:5000/GestionarProductos/',
+    url: 'http://localhost:3001/productos/',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
@@ -18,7 +20,7 @@ export const registrarProducto = async (data, successCallback, errorCallback) =>
 export const editarProducto = async (id, data, successCallback, errorCallback) => {
   const options = {
     method: 'PATCH',
-    url: `http://localhost:5000/GestionarProductos/${id}/`,
+    url: `http://localhost:3001/productos/${id}/`,
     headers: { 'Content-Type': 'application/json' },
     data,
   };
@@ -28,7 +30,7 @@ export const editarProducto = async (id, data, successCallback, errorCallback) =
 
 /*---------VENTAS-------------*/
 
-{/*export const obtenerVentas = async (successCallback, errorCallback) => {
+/*{export const obtenerVentas = async (successCallback, errorCallback) => {
   const options = { method: 'GET', url: 'http://localhost:5000/Ventas/' };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
@@ -52,11 +54,11 @@ export const editarVenta = async (id, data, successCallback, errorCallback) => {
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
-*/}
+}*/
 
 /*---------USUARIOS-------------*/
 
-{/*
+/*{
 
 export const editarUsuario = async (id, data, successCallback, errorCallback) => {
   const options = {
@@ -67,4 +69,4 @@ export const editarUsuario = async (id, data, successCallback, errorCallback) =>
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
-*/}
+}*/
