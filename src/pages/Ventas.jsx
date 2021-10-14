@@ -3,7 +3,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Filtros from '../components/Filtros'
+import Filtros from '../components/Filtros';
+import { nanoid } from 'nanoid';
 
 const GestionarVentasBackend = [
     {
@@ -130,14 +131,14 @@ const TablaVentas = ({ listaVentas }) => {
                                     <th scope="col">Nombre Cliente</th>
                                     <th scope="col">Valor total</th>
                                     <th scope="col">ID Vendedor</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Acciones</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                     {listaVentas.map((ventas) => {
                                         return(
-                                        <tr>
+                                        <tr key={nanoid()}>
                                                 <td>{ventas.idVenta}</td>
                                                 <td>{ventas.fecha_venta}</td>
                                                 <td>{ventas.fecha_pago}</td>
@@ -148,9 +149,14 @@ const TablaVentas = ({ listaVentas }) => {
                                                 <td>{ventas.nombre_cliente}</td>
                                                 <td>{ventas.total_venta}</td>
                                                 <td>{ventas.idVendedor}</td>
-                                                <td><button className="editButton">
-                                                    <span className="material-icons">edit</span></button>
+                                                <td>
+                                                        <button className="editButton">
+                                                        <span className="material-icons">edit</span></button>
                                                 </td>
+                                                {/* <td>    
+                                                        <button className="editButton">
+                                                        <span className="material-icons">edit</span></button> 
+                                                </td> */}
                                         </tr>
                                         );
                                         })}

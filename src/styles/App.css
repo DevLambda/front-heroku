@@ -584,6 +584,7 @@ background-color: #ff790a;
 .wd100{
 	width: 100%;
 }
+
 .btn_ok{
 	background-color: #f36a6a;
 	border: 0;
@@ -658,4 +659,8 @@ background-color: #ff790a;
 
 #t_ventas {
     width: auto;
+}
+
+#wd140{
+	width: 40em;
 }
