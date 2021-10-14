@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Filtros from '../components/Filtros'
+import React, { useEffect, useState, useRef} from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Filtros from '../components/Filtros';
+import { nanoid } from 'nanoid';
 
 const GestionarUsuariosBackend = [
     {
@@ -9,7 +10,6 @@ const GestionarUsuariosBackend = [
         given_name: "Marcela",
         family_name: "Rojas",
         email: "marcelarojasd.7c@gmail.com",
-        cellphone: '3098880000',
         rol: 'Administrador',
         estado: 'Pendiente'
     },
@@ -18,7 +18,6 @@ const GestionarUsuariosBackend = [
         given_name: "Gina",
         family_name: "Rodriguez",
         email: "ginarodriguez@gmail.com",
-        cellphone: '3098888888',
         rol: 'Vendedor', 
         estado: 'Pendiente'
     },
@@ -27,20 +26,68 @@ const GestionarUsuariosBackend = [
         given_name: "Cristian",
         family_name: "Caleño",
         email: "cristianc@gmail.com",
-        cellphone: '30985558888',
         rol: 'Administrador', 
         estado: 'Pendiente'
     },
-    {
-        id_usuario:'0004',
-        given_name: "Ashley",
-        family_name: "Romero",
-        email: "ashleyr@gmail.com",
-        cellphone: '3098888666',
-        rol: 'Administrador', 
-        estado: 'Aprobado'
-    },
 ]
+
+/*--Esta función permite editar cada registro de la tabla de usuario, solo permite editar estado y rol---*/
+
+const FilaUsuarios = ({usuario})=>{
+    const [editUsuario, setEditUsuario] = useState(false);
+    return(
+        <tr>
+            {editUsuario ? (
+            
+            <>
+            <td>{usuario.id_usuario}</td>
+            <td>{usuario.given_name}</td>
+            <td>{usuario.family_name}</td>
+            <td>{usuario.email}</td>
+            <td>
+             <select className="listaUsuarios" name="rol" required defaultValue={usuario.rol} >
+                                            <option disabled value={0}> Selecciona un rol</option>
+                                                <option>Administrador</option>
+                                                <option>Vendedor</option>
+                                        </select>
+            </td>  
+            <td>
+             <select className="listaUsuarios" name="estado" required defaultValue={usuario.estado} >
+                                            <option disabled value={0}>Seleccione el estado</option>
+                                                <option>Aprobado</option>
+                                                <option>No Aprobado</option>
+            </select>
+            </td>
+            </> ) : (
+                        <>
+                                    <td>{usuario.id_usuario}</td>
+                                    <td>{usuario.given_name}</td>
+                                    <td>{usuario.family_name}</td>
+                                    <td>{usuario.email}</td>
+                                    <td>{usuario.rol}</td>
+                                        <select className="listaUsuarios"name="rol" required defaultValue={usuario.rol} >
+                                            <option disabled value={0}> Selecciona un producto</option>
+                                                <option>Administrador</option>
+                                                <option>Vendedor</option>
+                                        </select>
+                                    <td><label className={usuario.estado==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>
+                                        {usuario.estado}</label></td>
+                                    <td>
+                                          
+                                        {/* {editUsuario ?   */}
+                                        <button type="submit" className="editButton" onClick={setEditUsuario(!editUsuario)}>
+                                        <span className="material-icons">check</span></button> 
+                                        {/* : */}
+                                            <button className="editButton" onClick={setEditUsuario(!editUsuario)}>
+                                            <span className="material-icons">edit</span></button> 
+                                        {/* }                    */}
+                                    </td>
+                        </>
+                    )
+                }
+        </tr>     
+    ) 
+};
 
 const GestionarUsuarios = () => {
 
@@ -50,6 +97,10 @@ const GestionarUsuarios = () => {
         setGestionarUsuarios(GestionarUsuariosBackend);
     }, []);
 
+    const submitEdit =(e)=>{
+        e.preventDefault();
+        console.log(e);
+     }
         return (
             <div>
                 <Header/>
@@ -65,6 +116,7 @@ const GestionarUsuarios = () => {
                         </li>
                     </ul>
                     <div className="productsTable">
+                    <form onSubmit={submitEdit}>
                         <table summary="Usuarios registrados" className="usersTable">
                             <caption></caption>
                                 <thead>
@@ -81,27 +133,17 @@ const GestionarUsuarios = () => {
                             <tbody>
                             {GestionarUsuariosBackend.map((usuario) => {
                                 return (
-                                    <tr>
-                                    <td>{usuario.id_usuario}</td>
-                                    <td>{usuario.given_name}</td>
-                                    <td>{usuario.family_name}</td>
-                                    <td>{usuario.rol}</td>
-                                    <td>{usuario.email}</td>
-                                    <td><label className={usuario.estado==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>
-                                        {usuario.estado}</label></td>
-                                    <td><button className="editButton">
-                                        <span className="material-icons">edit</span></button>
-                                    </td>
-                                </tr>
+                                    <FilaUsuarios key={nanoid()} usuario={usuario}/>
                                 );
                             })}
                             </tbody>
                         </table>
-                    </div>
-                </section>
-                <Footer/>
-            </div>
-            
-    )};    
+                    </form>
+                </div>
+            </section>
+        <Footer/>
+    </div>
+           
+)};   
     
 export default GestionarUsuarios;
