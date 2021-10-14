@@ -484,8 +484,6 @@ background-color: #ff790a;
   }
 
   .datos_cliente, .datos_venta, .title_page, .tbl_venta{
-	/* width: 100%;
-	max-width: 900px; */
 	margin: auto;
 	margin-bottom: 20px;
 }
@@ -514,20 +512,6 @@ background-color: #ff790a;
     margin-left: 8px;
 }
 
-.btn_new{
-	border: 1px solid #FFFFFF;
-	color: #FFFFFF;
-	border-radius: 10px;
-	opacity: 1;
-	padding: 5px;
-	background-color: #401081;
-	height: 20px; 
-	width: 130px;
-	cursor: pointer;
-	align-content: center;
-	margin-top:7px;
-}
-
 .div_registro_cliente{
 	border: 1px solid #FFFFFF;
 	color: #FFFFFF;
@@ -543,14 +527,17 @@ background-color: #ff790a;
 }
 
 #detalle_venta tr{
-	background-color: #F0F0F0 !important;
+	background-color: #ffffff !important;
 }
 #detalle_venta td{
-	border-bottom: 1px solid #FFF;
-	
+	border-bottom: none;
+}
+
+#listaProductos{
+    width: 20em;
 }
 .datos{
-	background-color: #f8f6f8;
+	background-color: #F0F2F4;
 	display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -579,6 +566,7 @@ background-color: #ff790a;
 	display: -o-flex;
 	display: flex;
 	align-items: center;
+    justify-content: center;
 }
 
 .datos label{
@@ -607,6 +595,7 @@ background-color: #ff790a;
 	width: 130px;
 	color: #FFF;
 	opacity: 1;
+    text-decoration: none;
 
 }
 .btn_new{
@@ -615,12 +604,14 @@ background-color: #ff790a;
 	border-radius: 5px;
 	cursor: pointer;
 	padding: 5px;
-	margin: 10px 1em 0 auto;
-	height: 20px; 
-	width: 130px;
+	margin: 4px 1em 0 auto;
+	height: auto; 
+	width: auto;
 	color: #FFF;
 	opacity: 1;
-}
+    text-decoration: none;
+} 
+
 #div_registro_cliente, #add_product_venta{
 	display: none;
 }
@@ -630,7 +621,8 @@ background-color: #ff790a;
 
 #tbl_venta{
 	width: 73em;
-	margin: 1em;	
+	margin: 0.5em;
+    border:none;	
 }
 .tbl_venta tfoot td{
 	font-weight: bold;
@@ -656,4 +648,14 @@ background-color: #ff790a;
 	color: #FFF;
 	opacity: 1;
 }
+.botonesVenta{
+    margin-left: 32em;
+}
 
+#btn_facturar_venta, #btn_anular_venta{
+    font-size:24px;
+}
+
+#t_ventas {
+    width: auto;
+}
