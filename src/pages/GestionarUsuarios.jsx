@@ -53,9 +53,7 @@ const FilaUsuarios = ({usuario})=>{
         headers: {'Content-Type': 'application/json'},
         data; {...infoUsuario, id:usuario._id (esto se debe confirmar, no se si es el id del usuario cuando se crea con auth0)}
     }*/}
-    };
-
-    // await axios
+     // await axios
     // .request(options)
     // .then(function (response){
     // console.log(response.data);
@@ -65,6 +63,7 @@ const FilaUsuarios = ({usuario})=>{
     // console.error(error);
     // toast.error("Error al actualizar usuario")
     // });
+    };
     
     return(
         <tr>
