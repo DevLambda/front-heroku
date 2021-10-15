@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Filtros from '../components/Filtros';
 import { nanoid } from 'nanoid';
-import axios from 'axios';
+// import axios from 'axios';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const GestionarUsuariosBackend = [
     {
@@ -58,10 +59,12 @@ const FilaUsuarios = ({usuario})=>{
     // .then(function (response){
     // console.log(response.data);
     // toast.success("Usuario actualizado con éxito")
+    // setEjecutarConsulta(true);
     // })
     // .catch(function (error){
     // console.error(error);
     // toast.error("Error al actualizar usuario")
+    // setEdit(false)
     // });
     };
     
@@ -90,6 +93,10 @@ const FilaUsuarios = ({usuario})=>{
             <td>
             <button className="editButton" onClick={actualizarDatosUsuarios()}>
                         <span className="material-icons">check</span></button></td>
+            <td>
+            <button className="editButton" onClick={()=>setEdit(!edit)}> 
+            <span className="material-icons">cancel</span></button></td>
+                        
             </> 
             ) : (
                     <> 
@@ -115,10 +122,24 @@ const GestionarUsuarios = () => {
 
     const [GestionarUsuarios, setGestionarUsuarios] = useState([]);
     const form=useRef(null);
+    const [busqueda, setBusqueda]=useState("");
+    // const [ejecutarConsulta, setEjecutarConsulta]=useState(true);
+
+    //hacer esto cuando tengamos la base lista de usuarios, desde hora y 50m min para complementar, clase 14
+    // useEffect(() =>{
+    //     if (ejecutarConsulta){
+
+    //     }
+    // }, [ejecutarConsulta]);
     
+    //este use effect se debe actualizar cuando se tenga la conexión con el backend
     useEffect(() => {
         setGestionarUsuarios(GestionarUsuariosBackend);
     }, []);
+
+    useEffect(() => {
+        console.log("Busqueda", busqueda);
+    }, [busqueda]);
 
     const submitEdit =(e)=>{
         e.preventDefault();
@@ -136,7 +157,8 @@ const GestionarUsuarios = () => {
                     <ul className="posicionBuscador"> 
                         <li>
                             <div className="label">Ingresa el ID del usuario:</div>
-                            <Filtros/>
+                            <input id="busqueda" type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}/>
+                            <button className="botonBuscar" type="submit">Buscar</button>
                         </li>
                     </ul>
                     <div className="productsTable">
@@ -151,7 +173,7 @@ const GestionarUsuarios = () => {
                                     <th scope="col">Correo</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Estado solicitud</th>
-                                    <th scope="col">Acción</th> 
+                                    <th scope="col" colspan="2" id="acciones">Acción</th> 
                                 </tr>
                                 </thead>
                             <tbody>

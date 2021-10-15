@@ -669,4 +669,14 @@ background-color: #ff790a;
 
 .listaUsuarios{
     width: auto;
+    height: 40px;
+    padding: auto;
+}
+
+#acciones{
+    text-align: center;
+}
+
+#busqueda{
+    width: 20em;
 }
