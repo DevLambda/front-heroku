@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Filtros from '../components/Filtros';
 import { nanoid } from 'nanoid';
-// import axios from 'axios';
+import axios from 'axios';
 
 const GestionarUsuariosBackend = [
     {
@@ -43,10 +43,29 @@ const FilaUsuarios = ({usuario})=>{
         estado:  usuario.estado,
         }
     );
+
     const actualizarDatosUsuarios = async () =>{
+      console.log(infoUsuario);
+      //Pendiente gestionar con Ashley que esta info la reciba la base de datos, con metodo PATCH-hora y 36min de la clase 14
+    {/*const options ={
+        method: 'PATCH',
+        url: 'poner url de api .../update'
+        headers: {'Content-Type': 'application/json'},
+        data; {...infoUsuario, id:usuario._id (esto se debe confirmar, no se si es el id del usuario cuando se crea con auth0)}
+    }*/}
+    };
 
-    console.log(infoUsuario);
-
+    // await axios
+    // .request(options)
+    // .then(function (response){
+    // console.log(response.data);
+    // toast.success("Usuario actualizado con éxito")
+    // })
+    // .catch(function (error){
+    // console.error(error);
+    // toast.error("Error al actualizar usuario")
+    // });
+    
     return(
         <tr>
             { edit ? (
@@ -87,8 +106,10 @@ const FilaUsuarios = ({usuario})=>{
                 </>
             )
             }        
-        </tr>            
-    )  
+        </tr>     
+        
+    ) 
+   
 };
 
 const GestionarUsuarios = () => {
@@ -104,7 +125,7 @@ const GestionarUsuarios = () => {
         e.preventDefault();
         const fd = new FormData(form.current);
         console.log(e);
-    };
+    }
         return (
             <div>
                 <Header/>
@@ -148,6 +169,6 @@ const GestionarUsuarios = () => {
         <Footer/>
     </div>
            
-)};  
+)};   
     
 export default GestionarUsuarios;
