@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Filtros from '../components/Filtros';
 import { nanoid } from 'nanoid';
+// import axios from 'axios';
 
 const GestionarUsuariosBackend = [
     {
@@ -27,71 +28,73 @@ const GestionarUsuariosBackend = [
         family_name: "Caleño",
         email: "cristianc@gmail.com",
         rol: 'Administrador', 
-        estado: 'Pendiente'
+        estado: 'Aprobado'
     },
 ]
 
 /*--Esta función permite editar cada registro de la tabla de usuario, solo permite editar estado y rol---*/
 
 const FilaUsuarios = ({usuario})=>{
-    const [editUsuario, setEditUsuario] = useState(false);
+
+    const [edit, setEdit] = useState(false);
+    const [infoUsuario, setInfoUsuario]=useState(
+        {
+        rol: usuario.rol,
+        estado:  usuario.estado,
+        }
+    );
+    const actualizarDatosUsuarios = async () =>{
+
+    console.log(infoUsuario);
+
     return(
         <tr>
-            {editUsuario ? (
-            
+            { edit ? (
             <>
             <td>{usuario.id_usuario}</td>
             <td>{usuario.given_name}</td>
             <td>{usuario.family_name}</td>
             <td>{usuario.email}</td>
             <td>
-             <select className="listaUsuarios" name="rol" required defaultValue={usuario.rol} >
-                                            <option disabled value={0}> Selecciona un rol</option>
-                                                <option>Administrador</option>
-                                                <option>Vendedor</option>
-                                        </select>
-            </td>  
-            <td>
-             <select className="listaUsuarios" name="estado" required defaultValue={usuario.estado} >
-                                            <option disabled value={0}>Seleccione el estado</option>
-                                                <option>Aprobado</option>
-                                                <option>No Aprobado</option>
+             <select name="rol_usuario" className="listaUsuarios" required value={infoUsuario.rol} onChange={(e)=>setInfoUsuario({...infoUsuario, rol:e.target.value})} >
+                <option disabled value={0}> Selecciona un rol</option>
+                    <option>Administrador</option>
+                    <option>Vendedor</option>
             </select>
             </td>
-            </> ) : (
-                        <>
-                                    <td>{usuario.id_usuario}</td>
-                                    <td>{usuario.given_name}</td>
-                                    <td>{usuario.family_name}</td>
-                                    <td>{usuario.email}</td>
-                                    <td>{usuario.rol}</td>
-                                        <select className="listaUsuarios"name="rol" required defaultValue={usuario.rol} >
-                                            <option disabled value={0}> Selecciona un producto</option>
-                                                <option>Administrador</option>
-                                                <option>Vendedor</option>
-                                        </select>
-                                    <td><label className={usuario.estado==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>
-                                        {usuario.estado}</label></td>
-                                    <td>
-                                          
-                                        {/* {editUsuario ?   */}
-                                        <button type="submit" className="editButton" onClick={setEditUsuario(!editUsuario)}>
-                                        <span className="material-icons">check</span></button> 
-                                        {/* : */}
-                                            <button className="editButton" onClick={setEditUsuario(!editUsuario)}>
-                                            <span className="material-icons">edit</span></button> 
-                                        {/* }                    */}
-                                    </td>
-                        </>
-                    )
-                }
-        </tr>     
-    ) 
+             <td>
+             <select name="estado_usuario" className="listaUsuarios" required value={infoUsuario.estado} onChange={(e)=>setInfoUsuario({...infoUsuario, estado:e.target.value})}>
+                <option disabled value={0}>Seleccione el estado</option>
+                    <option>Aprobado</option>
+                    <option>Pendiente</option>
+            </select>
+            </td>
+            <td>
+            <button className="editButton" onClick={actualizarDatosUsuarios()}>
+                        <span className="material-icons">check</span></button></td>
+            </> 
+            ) : (
+                    <> 
+                    <td>{usuario.id_usuario}</td>
+                    <td>{usuario.given_name}</td>
+                    <td>{usuario.family_name}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.rol}</td>
+                    <td><label className={usuario.estado==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>
+                        {usuario.estado}</label></td>
+                    <td><button className="editButton" onClick={()=>setEdit(!edit)}> 
+                        <span className="material-icons">edit</span></button></td>            
+                </>
+            )
+            }        
+        </tr>            
+    )  
 };
 
 const GestionarUsuarios = () => {
 
     const [GestionarUsuarios, setGestionarUsuarios] = useState([]);
+    const form=useRef(null);
     
     useEffect(() => {
         setGestionarUsuarios(GestionarUsuariosBackend);
@@ -99,8 +102,9 @@ const GestionarUsuarios = () => {
 
     const submitEdit =(e)=>{
         e.preventDefault();
+        const fd = new FormData(form.current);
         console.log(e);
-     }
+    };
         return (
             <div>
                 <Header/>
@@ -116,7 +120,7 @@ const GestionarUsuarios = () => {
                         </li>
                     </ul>
                     <div className="productsTable">
-                    <form onSubmit={submitEdit}>
+                    {/* <form ref={form} onSubmit={submitEdit}> */}
                         <table summary="Usuarios registrados" className="usersTable">
                             <caption></caption>
                                 <thead>
@@ -138,12 +142,12 @@ const GestionarUsuarios = () => {
                             })}
                             </tbody>
                         </table>
-                    </form>
+                    {/* </form> */}
                 </div>
             </section>
         <Footer/>
     </div>
            
-)};   
+)};  
     
 export default GestionarUsuarios;
