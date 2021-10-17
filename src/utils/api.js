@@ -10,7 +10,7 @@ export const obtenerProductos = async (successCallback, errorCallback) => {
 export const registrarProducto = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
-    url: 'http://localhost:3001/productos/',
+    url: 'http://localhost:3001/productos/create',
     headers: { 'Content-Type': 'application/json' },
     data,
   };

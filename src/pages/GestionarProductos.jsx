@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Filtros from '../components/Filtros'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { obtenerProductos, registrarProducto, editarProducto} from '../utils/api';
 import { nanoid } from 'nanoid';
 
@@ -108,10 +107,9 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                 <ul className="posicionBuscador"> 
                     <li>
                         <div className="label">Ingresa el ID del producto:</div>
-                        <Filtros
-                        //****** CÓDIGO PARA BUSCAR ******/
-                        value={busqueda}
+                        <input id="busqueda" type="text" value={busqueda}
                         onChange={(e) => setBusqueda(e.target.value)} />
+                        <button className="botonBuscar" type="submit">Buscar</button>
                     </li>
                 </ul>
                 <div className="productsTable">
@@ -123,7 +121,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Acción</th>
+                                <th scope="col" colspan="2" id="accion">Acción</th> 
                             </tr>
                             </thead>
                         <tbody>
@@ -164,15 +162,16 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
 /*------------ Fila Productos - donde se pueden editar --------------*/
 
 const FilaProducto = ({ producto, setEjecutarConsulta }) => {
+    
     const [edit, setEdit] = useState(false);
-    //const [openDialog, setOpenDialog] = useState(false);
-    const [infoNuevoProducto, setInfoNuevoProducto] = useState({
-
+    const [infoNuevoProducto, setInfoNuevoProducto] = useState(
+        {
         idProducto: producto.idProducto,
         descripcion: producto.descripcion,
         valor: producto.valor,
         estado: producto.estado,
-    });
+        }
+    );
 
     const actualizarProducto = async () => {
     //enviar la info al back y se define el método POST con import axios de utils/api
@@ -188,89 +187,86 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                 valor: infoNuevoProducto.valor,
                 estado: infoNuevoProducto.estado,
             },
-          (response) => {
-            console.log(response.data);
-            toast.success('Producto editado con éxito');
-            setEdit(false);
-            setEjecutarConsulta(true);
-          },
-          (error) => {
-            toast.error('Error editando el producto');
-            console.error(error);
-          }
+            (response) => {
+                console.log(response.data);
+                toast.success('Producto editado con éxito');
+                setEdit(false);
+                setEjecutarConsulta(true);
+            },
+            (error) => {
+                toast.error('Error editando el producto');
+                console.error(error);
+            }
         );
-      };
+    };
 
 /******* Código con -input- para editar los producto **********/
 
     return (
-        <tr>{edit ? (
-            /****** El idProducto no se modifica - se asigna manual idProducto******/
+        <tr>
+            {edit ? (
             <>
-              {/*<td>{infoNuevoProducto._id}</td>*/}
-              <td>
-                <input
-                  type='number'
-                  value={infoNuevoProducto.idProducto}
-                  /*onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, idProducto: e.target.value })}*/
-                />
-              </td>
-              <td>
-                <input
-                  type='text'
-                  value={infoNuevoProducto.descripcion}
-                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripcion: e.target.value })}
-                />
-              </td>
-              <td>
-                <input
-                  type='number'
-                  value={infoNuevoProducto.valor}
-                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })}
-                />
-              </td>
-              <td>
-                <input
-                  type='text'
-                  value={infoNuevoProducto.estado}
-                  onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })}
-                />
-              </td>
-            </>
-        ) : (
-            <>
+            {/****** El idProducto no se modifica
+             * se asigna manual idProducto******/}
+
+                <td>{infoNuevoProducto.idProducto}
+                </td>
+                <td>
+                    <select name="descripcion" className="estilosCampos"
+                        defaultValue={infoNuevoProducto.descripcion}
+                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripcion: e.target.value })} >
+                        <option disabled value={0}> Selecciona un estado</option>
+                        <option>Bonsai Chumono</option>
+                        <option>Bonsai Komono</option>
+                        <option>Bonsai Kotate</option>
+                        <option>Bonsai Omono</option>
+                        <option>Bonsai Shito</option>
+                        <option>Bonsai Shohin</option>
+                    </select>
+                </td>
+                <td>
+                   
+                    <input name="valor" className="campoValor"
+                        //type="number"
+                        defaultValue={infoNuevoProducto.valor}
+                        required
+                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })} >
+                    </input>    
+                </td>
+                <td>
+                    <select name="estado" className="estilosCampos"
+                        required
+                        defaultValue={infoNuevoProducto.estado}
+                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })} >
+                        <option disabled value={0}> Selecciona un estado</option>
+                        <option>Disponible</option>
+                        <option>No disponible</option>
+                    </select>
+                </td>
+                <td>
+                    <button className="checkButton" onClick={actualizarProducto()}>
+                    <span className="material-icons">check</span></button> 
+                </td>
+                <td>
+                    <button className="cancelButton" onClick={()=>setEdit(!edit)}> 
+                    <span className="material-icons">cancel</span>
+                    </button>
+                </td>
+                </>
+            ) : (
+                <>
                 <td>{producto.idProducto}</td>
                 <td>{producto.descripcion}</td>
                 <td>{producto.valor}</td>
                 <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>
                     {producto.estado}</label></td>
-                <td><button className="editButton">
+                <td><button className="editButton" onClick={() => setEdit(!edit)}>
                     <span className="material-icons">edit</span>
                     </button>
                 </td>
-            </>
+                </>
             )}
-            <td>
-                <div>
-                    {edit ? (
-                        <>
-                        <i
-                        onClick={() => actualizarProducto()}
-                        className="checkActualizarButton"
-                        />
-                        <i onClick={() => setEdit(!edit)}
-                        className="cancelEditButton"/>
-                        </>
-                    ) : (
-                        /**** RESOLVER SI AQUÍ VA INCLUIDO EL CONDICIONAL
-                        Y EL BOTON DE EDITAR ESTADO *****/
-                        <>
-                        <i onClick={() => setEdit(!edit)}
-                        className=""/>
-                        </>
-                    )}
-                </div>
-            </td>
+            
         </tr>
     );
 };

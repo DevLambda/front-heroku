@@ -91,7 +91,7 @@ const FilaUsuarios = ({usuario})=>{
             </select>
             </td>
             <td>
-            <button className="editButton" onClick={actualizarDatosUsuarios()}>
+            <button className="checkButton" onClick={actualizarDatosUsuarios()}>
                         <span className="material-icons">check</span></button></td>
             <td>
             <button className="editButton" onClick={()=>setEdit(!edit)}> 
