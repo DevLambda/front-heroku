@@ -1,37 +1,15 @@
 import React, { useEffect, useState, useRef} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { obtenerUsuarios, registraUsuarios, editaUsuarios} from '../utils/api';
 import { nanoid } from 'nanoid';
 // import axios from 'axios';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
-const GestionarUsuariosBackend = [
-    {
-        id_usuario:'0001',
-        given_name: "Marcela",
-        family_name: "Rojas",
-        email: "marcelarojasd.7c@gmail.com",
-        rol: 'Administrador',
-        estado: 'Pendiente'
-    },
-    {
-        id_usuario:'0002',
-        given_name: "Gina",
-        family_name: "Rodriguez",
-        email: "ginarodriguez@gmail.com",
-        rol: 'Vendedor', 
-        estado: 'Pendiente'
-    },
-    {
-        id_usuario:'0003',
-        given_name: "Cristian",
-        family_name: "Caleño",
-        email: "cristianc@gmail.com",
-        rol: 'Administrador', 
-        estado: 'Aprobado'
-    },
-]
+
+
+const GestionarUsuariosBackend = []
 
 /*--Esta función permite editar cada registro de la tabla de usuario, solo permite editar estado y rol---*/
 
@@ -135,7 +113,18 @@ const GestionarUsuarios = () => {
     
     //este use effect se debe actualizar cuando se tenga la conexión con el backend
     useEffect(() => {
-        setGestionarUsuarios(GestionarUsuariosBackend);
+        if (GestionarUsuarios) {
+            obtenerUsuarios((response) => {
+                console.log('la respuesta que se recibio fue', response);
+                setGestionarUsuarios(response.data);
+            },
+            (error) => {
+                console.error('Salio un error:', error);
+            }
+            );
+            
+        }
+
     }, []);
 
     useEffect(() => {
@@ -188,7 +177,7 @@ const GestionarUsuarios = () => {
                                 </tr>
                                 </thead>
                             <tbody>
-                            {GestionarUsuariosBackend.map((usuario) => {
+                            {GestionarUsuarios.map((usuario) => {
                                 return (
                                     <FilaUsuarios key={nanoid()} usuario={usuario}/>
                                 );
@@ -204,3 +193,4 @@ const GestionarUsuarios = () => {
 )};   
     
 export default GestionarUsuarios;
+
