@@ -58,15 +58,28 @@ export const editarVenta = async (id, data, successCallback, errorCallback) => {
 
 /*---------USUARIOS-------------*/
 
-/*{
+export const obtenerUsuarios = async (successCallback, errorCallback) => {
+  const options = { method: 'GET',
+  url: 'http://localhost:3001/usuarios/' };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+};
 
-export const editarUsuario = async (id, data, successCallback, errorCallback) => {
+export const registrarUsuarios = async (data, successCallback, errorCallback) => {
   const options = {
-    method: 'PATCH',
-    url: `http://localhost:5000/GestionarUsuarios/${id}/`,
+    method: 'POST',
+    url: 'http://localhost:3001/usuarios/create',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
-}*/
+
+export const editarUsuarios = async (id, data, successCallback, errorCallback) => {
+  const options = {
+    method: 'PATCH',
+    url: `http://localhost:3001/usuarios/${id}/`,
+    headers: { 'Content-Type': 'application/json' },
+    data,
+  };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+};
