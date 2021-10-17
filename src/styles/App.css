@@ -228,7 +228,7 @@ font-family: 'Be Vietnam Pro', sans-serif;
 }
 .botonCrear {
     position: absolute;
-    top: 37%;
+    top: 38%;
     right: 4%;
     background-color: #1BC628;
     font-size: 16px;
@@ -241,7 +241,7 @@ font-family: 'Be Vietnam Pro', sans-serif;
     cursor: pointer;
     right: 4.8em;
     top: 15em;
-    position: fixed;
+   
 }
 
 .botonCrear:hover {
@@ -262,7 +262,7 @@ font-family: 'Be Vietnam Pro', sans-serif;
 
 table {
     table-layout: fixed;
-    width: 96%;
+    width: 98%;
     border: 1px solid #ACB1B2;
     border-collapse: collapse;
 }
@@ -306,7 +306,7 @@ thead th:nth-child(4) {
 }
 
 thead th:nth-child(5) {
-    width: 10%;
+    width: 12%;
 }
 
 th, td {
@@ -371,6 +371,63 @@ tbody td {
     background-color: #5e5e5e;
 }
 
+.checkButton {
+    background-color: #1BC628;
+    font-weight: 600;
+    font-size: 4px;
+    color: white;
+    border: 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 32px;
+    width: 60px;
+    text-align: center;
+}
+.checkButton:hover {
+    background-color: #00ac00;
+}
+
+.cancelButton {
+    background-color: #401081;
+    font-weight: 600;
+    font-size: 4px;
+    color: white;
+    border: 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 32px;
+    width: 60px;
+    text-align: center;
+}
+.cancelButton:hover {
+    background-color: #5e5e5e;
+}
+.estilosCampos{
+    width: auto;
+    height: 40px;
+    font-size: 14px;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.campoValor{
+    width: auto;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#accion{
+    text-align:justify;
+}
+
 /*------------ Gestionar Productos / Registrar Nuevos Productos --------------*/
 
 
@@ -394,13 +451,15 @@ tbody td {
 input[type=text], select, textarea {
     font-size: 14px;
     width: 40em;
+    height: 45px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-sizing: border-box;
     margin-top: 8px;
     margin-bottom: 16px;
-    resize: vertical
+    resize: vertical;
+    cursor: pointer;
 }
 
 input[type=number], select, textarea {
@@ -412,23 +471,24 @@ input[type=number], select, textarea {
     box-sizing: border-box;
     margin-top: 8px;
     margin-bottom: 16px;
-    resize: vertical
+    resize: vertical;
+    cursor: pointer;
 }
 
 input[type=submit] {
-background-color: #1BC628;
-color: white;
-font-size: 16px;
-font-weight: 600;
-border: none;
-border-radius: 10px;
-height: 42px;
-width: 250px;
-cursor: pointer;
+    background-color: #1BC628;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    height: 42px;
+    width: 250px;
+    cursor: pointer;
 }
 
 input[type=submit]:hover {
-background-color: #00ac00;
+    background-color: #00ac00;
 }
 
 /*-------- Botón guardar y editar Formulario Producto--------*/
