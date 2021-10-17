@@ -142,7 +142,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                         </tbody>
                     </table>
                 </div>
-                <div>
+                {/*<div>
                     {productosFiltrados.map((el) => {
                         return (
                         <div>
@@ -153,7 +153,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                         </div>  
                         );
                     })}
-                </div>                 
+                </div>*/}                 
             </section>
             <Footer/>
         </div>
