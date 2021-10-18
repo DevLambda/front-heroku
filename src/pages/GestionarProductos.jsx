@@ -33,7 +33,7 @@ const GestionarProductos = () => {
     
 
     //obtener lista desde el back 
-        useEffect(() => {
+    useEffect(() => {
         if (mostrarTablaProductos) {
             setEjecutarConsulta(true);
         }
@@ -67,13 +67,13 @@ const GestionarProductos = () => {
             </div>
 
             {mostrarTablaProductos ? (
-            <TablaProductos listaProductos={productos}
-            setEjecutarConsulta={setEjecutarConsulta}/>
-            ) : ( <RegistrarProductos
-                setMostrarTablaProductos={setMostrarTablaProductos}
-                listaProductos={productos}
-                setProductos={setProductos}/>
-            )}
+            <TablaProductos listaProductos={productos} setEjecutarConsulta={setEjecutarConsulta}/>
+            ) : (
+                <RegistrarProductos
+                    setMostrarTablaProductos={setMostrarTablaProductos}
+                    listaProductos={productos}
+                    setProductos={setProductos}/>
+                )}
             <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
     );
@@ -108,7 +108,9 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                     <li>
                         <div className="label">Ingresa el ID del producto:</div>
                         <input id="busqueda" type="text" value={busqueda}
-                        onChange={(e) => setBusqueda(e.target.value)} />
+                        onChange={(e) => setBusqueda(e.target.value)}
+                        placeholder="Ingresa el dato"
+                        />
                         <button className="botonBuscar" type="submit">Buscar</button>
                     </li>
                 </ul>
@@ -125,22 +127,19 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                             </tr>
                             </thead>
                         <tbody>
-                            {productosFiltrados.map((producto) => {
-
-                                /* ****** POR VERIFICAR ********
-                                */
-                                return (
+                            {productosFiltrados.map((producto) => {   
+                            return (
                                 <FilaProducto
-                                        key={nanoid()}
-                                        producto={producto}
-                                        setEjecutarConsulta={setEjecutarConsulta}
+                                    key={nanoid()}
+                                    producto={producto}
+                                    setEjecutarConsulta={setEjecutarConsulta}
                                     />
                                 );                   
                             })}
                         </tbody>
                     </table>
                 </div>
-                <div>
+                {/*<div>
                     {productosFiltrados.map((el) => {
                         return (
                         <div>
@@ -151,7 +150,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                         </div>  
                         );
                     })}
-                </div>                 
+                </div>*/}                 
             </section>
             <Footer/>
         </div>
@@ -225,11 +224,13 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     </select>
                 </td>
                 <td>
-                   
+
                     <input name="valor" className="campoValor"
                         //type="number"
                         defaultValue={infoNuevoProducto.valor}
                         required
+                        //controlar el componente con un solo estado (e = elemento que entra)
+                        //(...)spread operator
                         onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })} >
                     </input>    
                 </td>

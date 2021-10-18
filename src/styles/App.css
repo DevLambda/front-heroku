@@ -221,8 +221,8 @@ font-family: 'Be Vietnam Pro', sans-serif;
     height: 42px;
     width: 140px;
     margin-left: 1rem;
-    cursor: pointer;
 }
+
 .botonBuscar:hover {
     background-color: #0671DD
 }
