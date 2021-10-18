@@ -67,13 +67,13 @@ const GestionarProductos = () => {
             </div>
 
             {mostrarTablaProductos ? (
-            <TablaProductos listaProductos={productos}
-            setEjecutarConsulta={setEjecutarConsulta}/>
-            ) : ( <RegistrarProductos
-                setMostrarTablaProductos={setMostrarTablaProductos}
-                listaProductos={productos}
-                setProductos={setProductos}/>
-            )}
+            <TablaProductos listaProductos={productos} setEjecutarConsulta={setEjecutarConsulta}/>
+            ) : (
+                <RegistrarProductos
+                    setMostrarTablaProductos={setMostrarTablaProductos}
+                    listaProductos={productos}
+                    setProductos={setProductos}/>
+                )}
             <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
     );
@@ -108,7 +108,9 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                     <li>
                         <div className="label">Ingresa el ID del producto:</div>
                         <input id="busqueda" type="text" value={busqueda}
-                        onChange={(e) => setBusqueda(e.target.value)} />
+                        onChange={(e) => setBusqueda(e.target.value)}
+                        placeholder="Ingresa el dato"
+                        />
                         <button className="botonBuscar" type="submit">Buscar</button>
                     </li>
                 </ul>
@@ -125,15 +127,12 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                             </tr>
                             </thead>
                         <tbody>
-                            {productosFiltrados.map((producto) => {
-
-                                /* ****** POR VERIFICAR ********
-                                */
-                                return (
+                            {productosFiltrados.map((producto) => {   
+                            return (
                                 <FilaProducto
-                                        key={nanoid()}
-                                        producto={producto}
-                                        setEjecutarConsulta={setEjecutarConsulta}
+                                    key={nanoid()}
+                                    producto={producto}
+                                    setEjecutarConsulta={setEjecutarConsulta}
                                     />
                                 );                   
                             })}
@@ -190,7 +189,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
             (response) => {
                 toast.success('Producto editado con éxito');
                 setEdit(false);
-                setEjecutarConsulta(true);
+               
             },
             (error) => {
                 toast.error('Error editando el producto');
@@ -199,15 +198,12 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
         );
     };
 
-/******* Código con -input- para editar los producto **********/
+    /******* Código con -input- para editar los producto **********/
 
     return (
         <tr>
             {edit ? (
             <>
-            {/****** El idProducto no se modifica
-             * se asigna manual idProducto******/}
-
                 <td>{infoNuevoProducto.idProducto}
                 </td>
                 <td>
@@ -224,17 +220,19 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     </select>
                 </td>
                 <td>
-                   
+                    
                     <input name="valor" className="campoValor"
                         //type="number"
                         defaultValue={infoNuevoProducto.valor}
-                        required
-                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })}>
+                        //required
+                        //controlar el componente con un solo estado (e = elemento que entra)
+                        //(...)spread operator
+                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })} >
                     </input>    
                 </td>
                 <td>
                     <select name="estado" className="estilosCampos"
-                        required
+                        //required
                         defaultValue={infoNuevoProducto.estado}
                         onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })}>
                         <option disabled value={0}> Selecciona un estado</option>
@@ -263,7 +261,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     <span className="material-icons">edit</span>
                     </button>
                 </td>
-                </>
+            </>
             )}
             
         </tr>
@@ -285,7 +283,7 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setProdu
         fd.forEach((value, key) => {
             nuevoProducto[key] = value;
         });
-        //se define el método POST y la url 5000 (AQUÍ SE MUESTRAN DATOS)
+        //se define el método POST y la url 3001 (AQUÍ SE MUESTRAN DATOS)
         await registrarProducto(
             {
                 idProducto: nuevoProducto.idProducto,
