@@ -17,7 +17,7 @@ export const registrarProducto = async (data, successCallback, errorCallback) =>
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
-export const editarProducto = async (id, data, successCallback, errorCallback) => {
+export const editarProducto = async ( data, successCallback, errorCallback) => {
   const options = {
     method: 'PATCH',
     url: 'http://localhost:3001/productos/update/',
@@ -74,10 +74,10 @@ export const registrarUsuarios = async (data, successCallback, errorCallback) =>
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
-export const editarUsuarios = async (id, data, successCallback, errorCallback) => {
+export const editarUsuarios = async ( data, successCallback, errorCallback) => {
   const options = {
     method: 'PATCH',
-    url: `http://localhost:3001/usuarios/${id}/`,
+    url: 'http://localhost:3001/usuarios/update/',
     headers: { 'Content-Type': 'application/json' },
     data,
   };

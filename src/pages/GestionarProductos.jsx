@@ -123,7 +123,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col" colspan="2" id="accion">Acción</th> 
+                                <th scope="col" id="accion">Acción</th>
                             </tr>
                             </thead>
                         <tbody>
@@ -179,15 +179,15 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     //enviar la info al back
     
         await editarProducto(
-            producto._id,
-            {
+            
+            {   
+                _id: producto._id,
                 idProducto: infoNuevoProducto.idProducto,
                 descripcion: infoNuevoProducto.descripcion,
                 valor: infoNuevoProducto.valor,
                 estado: infoNuevoProducto.estado,
             },
             (response) => {
-                console.log(response.data);
                 toast.success('Producto editado con éxito');
                 setEdit(false);
                 setEjecutarConsulta(true);
@@ -210,7 +210,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                 <td>
                     <select name="descripcion" className="estilosCampos"
                         defaultValue={infoNuevoProducto.descripcion}
-                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripcion: e.target.value })} >
+                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripcion: e.target.value })}>
                         <option disabled value={0}> Selecciona un estado</option>
                         <option>Bonsai Chumono</option>
                         <option>Bonsai Komono</option>
@@ -235,7 +235,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     <select name="estado" className="estilosCampos"
                         //required
                         defaultValue={infoNuevoProducto.estado}
-                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })} >
+                        onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })}>
                         <option disabled value={0}> Selecciona un estado</option>
                         <option>Disponible</option>
                         <option>No disponible</option>
@@ -258,7 +258,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                 <td>{producto.valor}</td>
                 <td><label className={producto.estado==='Disponible' ? 'badgeAvailable':'badgeNotAvailable'}>
                     {producto.estado}</label></td>
-                <td><button className="editButton" onClick={() => setEdit(!edit)}>
+                <td><button className="editButton" onClick={() => setEdit(true)}>
                     <span className="material-icons">edit</span>
                     </button>
                 </td>
