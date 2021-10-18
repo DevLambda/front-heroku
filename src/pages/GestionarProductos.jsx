@@ -190,7 +190,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                 console.log(response.data);
                 toast.success('Producto editado con éxito');
                 setEdit(false);
-               
+                setEjecutarConsulta(true);
             },
             (error) => {
                 toast.error('Error editando el producto');
