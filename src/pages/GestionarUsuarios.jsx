@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef} from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { obtenerUsuarios, registraUsuarios, editaUsuarios} from '../utils/api';
+import { obtenerUsuarios, registrarUsuarios, editarUsuarios} from '../utils/api';
 import { nanoid } from 'nanoid';
 // import axios from 'axios';
 // import { ToastContainer, toast } from 'react-toastify';
@@ -18,32 +20,35 @@ const FilaUsuarios = ({usuario})=>{
     const [edit, setEdit] = useState(false);
     const [infoUsuario, setInfoUsuario]=useState(
         {
-        rol: usuario.rol,
-        estado:  usuario.estado,
+            id_usuario: usuario.id_usuario,
+            given_name: usuario.given_name,
+            family_name: usuario.family_name,
+            email: usuario.email,
+            rol: usuario.rol,
+            estado: usuario.estado,
         }
     );
 
     const actualizarDatosUsuarios = async () =>{
-      console.log(infoUsuario);
-      //Pendiente gestionar con Ashley que esta info la reciba la base de datos, con metodo PATCH-hora y 36min de la clase 14
-    {/*const options ={
-        method: 'PATCH',
-        url: 'poner url de api .../update'
-        headers: {'Content-Type': 'application/json'},
-        data; {...infoUsuario, id:usuario._id (esto se debe confirmar, no se si es el id del usuario cuando se crea con auth0)}
-    }*/}
-     // await axios
-    // .request(options)
-    // .then(function (response){
-    // console.log(response.data);
-    // toast.success("Usuario actualizado con éxito")
-    // setEjecutarConsulta(true);
-    // })
-    // .catch(function (error){
-    // console.error(error);
-    // toast.error("Error al actualizar usuario")
-    // setEdit(false)
-    // });
+        await editarUsuarios(
+            usuario._id,
+            {
+                id_usuario: infoUsuario.id_usuario,
+                given_name: infoUsuario.given_name,
+                family_name: infoUsuario.family_name,
+                email: infoUsuario.email,
+                rol: infoUsuario.rol,
+                estado: infoUsuario.estado,
+            },
+            (response) => {
+                toast.success('Usuario editado con éxito');
+                setEdit(false);
+            },
+            (error) => {
+                toast.error('Error editando el Usuario');
+                console.error(error);
+            }
+        );
     };
     
     return(
@@ -69,10 +74,10 @@ const FilaUsuarios = ({usuario})=>{
             </select>
             </td>
             <td>
-            <button className="checkButton" onClick={actualizarDatosUsuarios()}>
+            <button className="checkButton" onClick={actualizarDatosUsuarios}>
                         <span className="material-icons">check</span></button></td>
             <td>
-            <button className="editButton" onClick={()=>setEdit(!edit)}> 
+            <button className="editButton" onClick={()=>setEdit(true)}> 
             <span className="material-icons">cancel</span></button></td>
                         
             </> 
@@ -85,7 +90,7 @@ const FilaUsuarios = ({usuario})=>{
                     <td>{usuario.rol}</td>
                     <td><label className={usuario.estado==='Aprobado'?"badgeAvailable":"badgeNotAvailable"}>
                         {usuario.estado}</label></td>
-                    <td><button className="editButton" onClick={()=>setEdit(!edit)}> 
+                    <td><button className="editButton" onClick={()=>setEdit(true)}> 
                         <span className="material-icons">edit</span></button></td>            
                 </>
             )
@@ -173,7 +178,7 @@ const GestionarUsuarios = () => {
                                     <th scope="col">Correo</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Estado solicitud</th>
-                                    <th scope="col" colspan="2" id="acciones">Acción</th> 
+                                    <th scope="col" id="acciones">Acción</th> 
                                 </tr>
                                 </thead>
                             <tbody>
