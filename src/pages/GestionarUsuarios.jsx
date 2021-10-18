@@ -31,8 +31,7 @@ const FilaUsuarios = ({usuario})=>{
 
     const actualizarDatosUsuarios = async () =>{
         await editarUsuarios(
-            usuario._id,
-            {
+            {   _id:usuario._id,
                 id_usuario: infoUsuario.id_usuario,
                 given_name: infoUsuario.given_name,
                 family_name: infoUsuario.family_name,

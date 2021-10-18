@@ -123,7 +123,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col" id="accion">Acción</th> 
+                                <th scope="col" id="accion">Acción</th>
                             </tr>
                             </thead>
                         <tbody>
@@ -179,8 +179,9 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     //enviar la info al back
     
         await editarProducto(
-            producto._id,
-            {
+            
+            {   
+                _id: producto._id,
                 idProducto: infoNuevoProducto.idProducto,
                 descripcion: infoNuevoProducto.descripcion,
                 valor: infoNuevoProducto.valor,
