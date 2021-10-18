@@ -190,7 +190,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                 console.log(response.data);
                 toast.success('Producto editado con éxito');
                 setEdit(false);
-                setEjecutarConsulta(true);
+               
             },
             (error) => {
                 toast.error('Error editando el producto');
@@ -199,15 +199,12 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
         );
     };
 
-/******* Código con -input- para editar los producto **********/
+    /******* Código con -input- para editar los producto **********/
 
     return (
         <tr>
             {edit ? (
             <>
-            {/****** El idProducto no se modifica
-             * se asigna manual idProducto******/}
-
                 <td>{infoNuevoProducto.idProducto}
                 </td>
                 <td>
@@ -224,11 +221,11 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     </select>
                 </td>
                 <td>
-
+                    
                     <input name="valor" className="campoValor"
                         //type="number"
                         defaultValue={infoNuevoProducto.valor}
-                        required
+                        //required
                         //controlar el componente con un solo estado (e = elemento que entra)
                         //(...)spread operator
                         onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valor: e.target.value })} >
@@ -236,7 +233,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                 </td>
                 <td>
                     <select name="estado" className="estilosCampos"
-                        required
+                        //required
                         defaultValue={infoNuevoProducto.estado}
                         onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })} >
                         <option disabled value={0}> Selecciona un estado</option>
@@ -245,7 +242,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     </select>
                 </td>
                 <td>
-                    <button className="checkButton" onClick={actualizarProducto()}>
+                    <button className="checkButton" onClick={actualizarProducto}>
                     <span className="material-icons">check</span></button> 
                 </td>
                 <td>
@@ -265,7 +262,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
                     <span className="material-icons">edit</span>
                     </button>
                 </td>
-                </>
+            </>
             )}
             
         </tr>
@@ -287,7 +284,7 @@ const RegistrarProductos = ({ setMostrarTablaProductos, listaProductos, setProdu
         fd.forEach((value, key) => {
             nuevoProducto[key] = value;
         });
-        //se define el método POST y la url 5000 (AQUÍ SE MUESTRAN DATOS)
+        //se define el método POST y la url 3001 (AQUÍ SE MUESTRAN DATOS)
         await registrarProducto(
             {
                 idProducto: nuevoProducto.idProducto,
