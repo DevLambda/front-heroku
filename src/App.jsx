@@ -19,7 +19,7 @@ function App() {
     <Auth0Provider
     domain="proyectodevlambda.us.auth0.com"
     clientId="cnDsWAKlkwmY49b27NOXXa0DWvYJRBLx"
-    redirectUri={window.location.origin}>   
+    redirectUri= {`${window.location.origin}/Ventas`}>   
     <div className="App">
       <Router>
         <Switch>
