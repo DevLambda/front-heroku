@@ -106,7 +106,7 @@ const GestionarUsuarios = () => {
     const form=useRef(null);
     const [busqueda, setBusqueda]=useState("");
     // const [ejecutarConsulta, setEjecutarConsulta]=useState(true);
-    const [usuariosFiltrados, setUsuariosfiltrados]=useState(GestionarUsuariosBackend);
+    const [usuariosFiltrados, setUsuariosFiltrados]=useState(GestionarUsuariosBackend);
 
     //hacer esto cuando tengamos la base lista de usuarios, desde hora y 50m min para complementar, clase 14
     // useEffect(() =>{
@@ -135,15 +135,14 @@ const GestionarUsuarios = () => {
         console.log("Busqueda", busqueda);
         console.log("lista Original",GestionarUsuariosBackend);
         console.log("listafiltrada",
-        setUsuariosfiltrados(
+        setUsuariosFiltrados(
             GestionarUsuariosBackend.filter(elemento=>{
             return JSON.stringify(elemento).includes(busqueda);
-
+            //para solo una varible: elemento.give_name.includes...
         }))
         )
-
-
-    }, [busqueda]);
+    }, [busqueda, GestionarUsuariosBackend]);
+    //revisar variables de este useEffect
 
     const submitEdit =(e)=>{
         e.preventDefault();
