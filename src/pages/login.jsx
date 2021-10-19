@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 // import google from '../src/media/google_logo.png';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Login() {
+  const { loginWithRedirect } = useAuth0();
   return (
     <div>
         <div className="container">
@@ -24,11 +26,11 @@ function Login() {
                     {/* <img src={google} alt='Logo Google' className='logoGoogle'/> */}
                     <button className="botonlogin" type="submit">Registrarme con Google</button><br></br> 
                   </div>
-                <Link to='/Ventas'>
+                
                  <div>
-                    <button className="botonlogin" type="submit">Ingresar con Google</button>
+                    <button className="botonlogin" type="submit" onClick={() => loginWithRedirect()} >Ingresar con Google</button>
                   </div>
-                </Link>
+               
                 {/* <script src="https://accounts.google.com/gsi/client" async defer></script> */}
                 {/*</form>              
                 <br></br>

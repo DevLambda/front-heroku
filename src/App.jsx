@@ -4,6 +4,7 @@ import Ventas from './pages/Ventas';
 import GestionarProductos from './pages/GestionarProductos';
 import GestionarUsuarios from './pages/GestionarUsuarios';
 import './styles/App.css'
+import { Auth0Provider } from "@auth0/auth0-react";
 
 import React from "react";
 import {
@@ -15,6 +16,10 @@ import {
 
 function App() {
   return (
+    <Auth0Provider
+    domain="proyectodevlambda.us.auth0.com"
+    clientId="cnDsWAKlkwmY49b27NOXXa0DWvYJRBLx"
+    redirectUri={window.location.origin}>   
     <div className="App">
       <Router>
         <Switch>
@@ -43,6 +48,7 @@ function App() {
       </Router>
        
     </div>
+  </Auth0Provider>
   );
 }
 
