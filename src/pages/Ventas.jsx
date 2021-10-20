@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Filtros from '../components/Filtros';
+import {obtenerVentas,registrarVentas,editarVentas} from'../utils/api';
 import { nanoid } from 'nanoid';
 
 const GestionarVentasBackend = [
@@ -12,51 +12,72 @@ const GestionarVentasBackend = [
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "Entregada",
-        idCliente:'0001',
+        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "001",
+        idVendedor: "007",
     },
     {
         idVenta: "0002",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "Cancelada",
-        idCliente:'0001',
+        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "001",
+        idVendedor: "007",
     },
     {
         idVenta: "0003",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "En Progreso",
-        idCliente:'0001',
+        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "001",
+        idVendedor: "007",
     },
     {
         idVenta: "0004",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "En Progreso",
-        idCliente:'0001',
+        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "001",
+        idVendedor: "007",
     },
 ]
-
 const Ventas = () =>{
     const [Ventas, setVentas] = useState([]);
     const [mostrarTablaVentas, setMostrarTablaVentas] = useState(true);
     const [textoBoton,setTextoBoton] = useState('Registrar Venta');
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
     useEffect(() => {
         setVentas(GestionarVentasBackend);
     }, []);
+
+    useEffect(() => {
+        console.log('consulta', ejecutarConsulta);
+        if (ejecutarConsulta) {
+            obtenerVentas((response) => {
+                console.log('la respuesta que se recibio fue', response);
+                setVentas(response.data);
+            },
+            (error) => {
+                console.error('Salio un error:', error);
+            }
+            );
+            setEjecutarConsulta(false); 
+        }
+    }, [ejecutarConsulta]);
+    
+    useEffect(() => {
+        if (mostrarTablaVentas) {
+            setEjecutarConsulta(true);
+        }
+    }, [mostrarTablaVentas]);
 
     useEffect(() => {
         if (mostrarTablaVentas) {
@@ -69,21 +90,23 @@ const Ventas = () =>{
 
     return(
         <div>
-        <button
-        onClick={() => {
-            setMostrarTablaVentas(!mostrarTablaVentas)
-        }}
-        className="botonCrear">
-        {textoBoton}
-        </button>
-        {mostrarTablaVentas ? (<TablaVentas listaVentas={Ventas}/>
+            <div>
+                <button
+                onClick={() => {
+                    setMostrarTablaVentas(!mostrarTablaVentas)
+                }}
+                className="botonCrear">
+                {textoBoton}
+                </button>
+            </div>
+        
+        {mostrarTablaVentas ? (<TablaVentas listaVentas={Ventas} setEjecutarConsulta={setEjecutarConsulta}/>
         ) : ( <RegistrarVentas
             setMostrarTablaVentas={setMostrarTablaVentas}
             listaVentas={Ventas}
-            setVentas={setVentas}
-        />
+            setVentas={setVentas}/>
         )}
-        <ToastContainer position='bottom-center' autoClose={4000} />
+        <ToastContainer position='bottom-center' autoClose={5000} />
     </div>
     )
 }
@@ -91,12 +114,18 @@ const Ventas = () =>{
 /*---------Tabla ventas--------------------*/
 
 
-const TablaVentas = ({ listaVentas }) => {
+const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
+    const [busqueda, setBusqueda] = useState('');
+    const [ventaFiltrados, setVentaFiltrados] = useState(listaVentas);
 
     useEffect(() => {
-        console.log("listado de ventas en la tabla",listaVentas)
-    }, [listaVentas]);
+        setVentaFiltrados(
+            listaVentas.filter((elemento) => {
+                return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
 
+            })
+        );
+    }, [busqueda, listaVentas]);
 
 
     return (
@@ -107,74 +136,156 @@ const TablaVentas = ({ listaVentas }) => {
                     {/* <span>Gestionar Ventas</span>
                     <button  className="botonCrear">Registrar Venta</button>*/}
                 </div>
-                <div className="descripcionSeccion">Consulta el histórico de ventas, actualiza el estado de estas y/o edita la información que requieras. Lo único que no podrás editar es el ID de venta.
+                <div className="descripcionSeccion">Consulta el histórico de ventas, actualiza el estado de estas y/o edita la información que requieras. Lo único que no podrás editar es el ID de venta.</div>
             </div>
-    </div>
-        <section>
-            <ul className="posicionBuscador">
-                <li>
-                    <div className="label">Ingresa el ID de la venta: </div>
-                            <Filtros/>
-                </li>
-            </ul>
+            <section>
+                <ul className="posicionBuscador">
+                    <li>
+                        <div className="label">Ingresa el ID de la venta: </div>
+                        <input id="busqueda" type="text" value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)} />
+                        <button className="botonBuscar" type="submit">Buscar</button>
+                    </li>
+                </ul>
 
-                    <div className="productsTable">
-                        <table summary="Ventas registradas" className="usersTable">
-                            <caption></caption>
-                                <thead>
-                                <tr>
-                                    <th scope="col">ID Venta</th>
-                                    <th scope="col">Fecha Venta</th>
-                                    <th scope="col">Fecha Pago</th>
-                                    <th scope="col">Estado Venta</th>
-                                    <th scope="col">ID Cliente</th>
-                                    <th scope="col">Nombre Cliente</th>
-                                    <th scope="col">Valor total</th>
-                                    <th scope="col">ID Vendedor</th>
-                                    <th scope="col">Acciones</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    {listaVentas.map((ventas) => {
-                                        return(
-                                        <tr key={nanoid()}>
-                                                <td>{ventas.idVenta}</td>
-                                                <td>{ventas.fecha_venta}</td>
-                                                <td>{ventas.fecha_pago}</td>
-                                                <td><label className=
-                                                {ventas.estado_venta==='Entregada' ? "badgeAvailable" : ventas.estado_venta==='En Progreso' ? "badgeInProgress" : "badgeNotAvailable"} >{ventas.estado_venta}</label>
-                                                </td>
-                                                <td>{ventas.idCliente}</td>
-                                                <td>{ventas.nombre_cliente}</td>
-                                                <td>{ventas.total_venta}</td>
-                                                <td>{ventas.idVendedor}</td>
-                                                <td>
-                                                        <button className="editButton">
-                                                        <span className="material-icons">edit</span></button>
-                                                </td>
-                                                {/* <td>    
-                                                        <button className="editButton">
-                                                        <span className="material-icons">edit</span></button> 
-                                                </td> */}
-                                        </tr>
-                                        );
-                                        })}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+                <div className="productsTable">
+                    <table summary="Ventas registradas" className="usersTable">
+                        <caption></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID Venta</th>
+                                <th scope="col">Fecha Venta</th>
+                                <th scope="col">Fecha Pago</th>
+                                <th scope="col">Estado Venta</th>
+                                <th scope="col">ID Cliente</th>
+                                <th scope="col">Nombre Cliente</th>
+                                <th scope="col">ID Vendedor</th>
+                                <th scope="col">Valor total</th>
+                                <th id="acciones" colspan="2">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {ventaFiltrados.map((Ventas) => {
+                                return(
+                                <FilaVentas
+                                    key={nanoid()}
+                                    Ventas={Ventas}
+                                    setEjecutarConsulta={setEjecutarConsulta}
+                                />   
+                                ); 
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         <Footer/>
     </div>
-    )
+    );
 };
 
+/*------------Editar orden-------------------------->*/
+const FilaVentas =({Ventas,setEjecutarConsulta}) => {
+    const [edit,setEdit] = useState(false);
+    const [infoNuevaVenta, setInfoNuevaVenta] = useState(
+        {
+            idVenta:Ventas.idVenta,
+            fecha_venta:Ventas.fecha_venta,
+            fecha_pago:Ventas.fecha_pago,
+            estado_venta:Ventas.estado_venta,
+            idCliente:Ventas.idCliente,
+            nombre_cliente:Ventas.nombre_cliente,
+            idVendedor:Ventas.idVendedor,
+            total_venta:Ventas.total_venta,
+        }
+    );
+
+    const actualizarVenta = async ()=> {
+        await editarVentas (
+            Ventas._id,
+            {
+                idVenta:infoNuevaVenta.idVenta,
+                fecha_venta:infoNuevaVenta.fecha_venta,
+                fecha_pago:infoNuevaVenta.fecha_pago,
+                estado_venta:infoNuevaVenta.estado_venta,
+                idCliente:infoNuevaVenta.idCliente,
+                nombre_cliente:infoNuevaVenta.nombre_cliente,
+                idVendedor:infoNuevaVenta.idVendedor,
+                total_venta:infoNuevaVenta.total_venta,
+            },
+            (response) =>{
+                console.log(response.data);
+                toast.success('Producto editado con éxito');
+                setEdit(false);
+                setEjecutarConsulta(true);
+            },
+            (error) => {
+                toast.error('Error editando el producto');
+                console.error(error);
+            }
+        );
+    };
+
+    return(
+        <tr>
+            {edit ? (
+                <>
+                {/* //linea 233 no se que es? */}
+                <td>{infoNuevaVenta.idVenta}</td>
+                {/* <td>{Ventas.idVenta}</td> */}
+                <td>{Ventas.fecha_venta}</td>
+                {/* <td>{Ventas.fecha_pago}</td> */}
+                <td><input className="estiloCampos" type="date"/></td>
+                <td>
+                    <select name="estado_venta" className="estilosCampos"
+                        required 
+                        defaultValue = {setInfoNuevaVenta.estado_venta}
+                        onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, estado_venta: e.target.value})}>
+                        <option disabled value ={0}>Selecciona un estado</option>
+                        <option>Entregada</option>
+                        <option>Cancelada</option>
+                        <option>En Progreso</option>
+                    </select>
+                </td>
+                <td>{Ventas.idCliente}</td>
+                <td>{Ventas.nombre_cliente}</td>
+                <td>{Ventas.idVendedor}</td>
+                <td>{Ventas.total_venta}</td> 
+                <td>
+                    <button className="checkButton" onClick={actualizarVenta()}>
+                    <span className="material-icons">check</span></button> 
+                </td>
+                <td>
+                    <button className="cancelButton" onClick={()=>setEdit(!edit)}> 
+                    <span className="material-icons">cancel</span>
+                    </button>
+                </td>
+                </>
+            ) : (
+                <>
+                <td>{Ventas.idVenta}</td>
+                <td>{Ventas.fecha_venta}</td>
+                <td>{Ventas.fecha_pago}</td>
+                <td><label className={Ventas.estado_venta==='Entregada' ? 'badgeAvailable': Ventas.estado_venta==='En Progreso' ? "badgeInProgress" : 'badgeNotAvailable'}>
+                    {Ventas.estado_venta}</label></td>
+                <td>{Ventas.idCliente}</td>
+                <td>{Ventas.nombre_cliente}</td>
+                <td>{Ventas.idVendedor}</td>
+                <td>{Ventas.total_venta}</td>  
+                <td><button className="editButton" onClick={() => setEdit(!edit)}>
+                    <span className="material-icons">edit</span>
+                    </button>
+                </td>                 
+                </>
+            )}
+        </tr>
+    );
+};
 /*------------Registrar Ventas----------------------*/
 
 const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
     const form = useRef(null);
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
         const fd = new FormData(form.current);
 
@@ -183,9 +294,28 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
             nuevaVenta[key] = value;
         });
 
+        await registrarVentas(
+            {
+                ced_cliente:nuevaVenta.ced_cliente,
+                nombre_cliente:nuevaVenta.nombre_cliente,
+                tel_cliente:nuevaVenta.tel_cliente,
+                dir_cliente:nuevaVenta.dir_cliente,
+                idVendedor:nuevaVenta.idVendedor,
+                nom_vendedor:nuevaVenta.nom_vendedor,
+                fecha_venta:nuevaVenta.fecha_venta,
+                quantity:nuevaVenta.quantity,
+                fecha_pago:nuevaVenta.fecha_pago,
+                },
+                (response) => {
+                    console.log(response.data);
+                    toast.success('Nuevo producto agregado con éxito');
+                  },
+                  (error) => {
+                    console.error(error);
+                    toast.error('Error agregando el producto');
+                  }
+            );
         setMostrarTablaVentas(true);
-        setVentas([...listaVentas, nuevaVenta]);
-        toast.success('Venta registrada exitosamente');
     };
 
     return(
@@ -213,15 +343,15 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                       </div>
                       <div className="wd50">
                           <label id="label">Nombre</label>
-                          <input id="input_ventas" type="text" name="nom_cliente" disabled required/>
+                          <input id="input_ventas" type="text" name="nombre_cliente" required/>
                       </div>
                       <div className="wd50">
                           <label id="label">Teléfono</label>
-                          <input id="input_ventas" type="text" name="tel_cliente" disabled required/>
+                          <input id="input_ventas" type="text" name="tel_cliente" required/>
                       </div>
                       <div className="wd50">
                           <label id="label">Dirección</label>
-                          <input id="input_ventas" type="text" name="dir_cliente" disabled required/>
+                          <input id="input_ventas" type="text" name="dir_cliente" required/>
                       </div>
                       <div id="div_registro_cliente" className= "wd100">
                           <button type="submit" className="btn_save"><i className="far fa-save fa-lg"></i>Guardar</button>
@@ -238,11 +368,11 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                       </div>
                       <div className="wd50">
                           <label id="label">Nombre</label>
-                          <input id="input_ventas" type="text" name="nom_cliente" disabled required/>
+                          <input id="input_ventas" type="text" name="nom_vendedor" required/>
                       </div>
                       <div className="wd50">
                           <label id="label">Fecha de facturación</label>
-                          <input id="input_fecha" type="date" name="fecha_fact" required/>
+                          <input id="input_fecha" type="date" name="fecha_venta" required/>
                       </div>
                       <div className="wd100">
                       </div>
@@ -275,7 +405,7 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                       </div>
                       <div className="wd50">
                           <label id="label">Precio</label>
-                          <input id="input_fecha" type="number" name="price" required disabled/>
+                          <input id="input_fecha" type="number" name="precio" required />
                       </div>
                       <div className="wd50">
                           <label id="label">Fecha de Pago</label>
@@ -326,12 +456,9 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
             </section>
             <br/>
             <br/>
-            <div className="botonesVenta">
-                <a href="#" className="btn_new" id="btn_facturar_venta"><i className="fas fa-edit"></i>Procesar</a>
-                <a href="#" className="btn_ok" id="btn_anular_venta"><i className="fas fa-ban"></i>Anular</a>
-            </div>
-        <Footer/>
-    </div>
+            <button type="submit" className="botonGuardarProducto"> Procesar </button>
+            <Footer/>
+        </div>
     );
 };
 

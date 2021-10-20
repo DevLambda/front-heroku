@@ -30,12 +30,12 @@ export const editarProducto = async ( data, successCallback, errorCallback) => {
 
 /*---------VENTAS-------------*/
 
-/*{export const obtenerVentas = async (successCallback, errorCallback) => {
+export const obtenerVentas = async (successCallback, errorCallback) => {
   const options = { method: 'GET', url: 'http://localhost:5000/Ventas/' };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
-export const registrarVenta = async (data, successCallback, errorCallback) => {
+export const registrarVentas = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
     url: 'http://localhost:5000/Ventas/',
@@ -45,7 +45,7 @@ export const registrarVenta = async (data, successCallback, errorCallback) => {
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
-export const editarVenta = async (id, data, successCallback, errorCallback) => {
+export const editarVentas = async (id, data, successCallback, errorCallback) => {
   const options = {
     method: 'PATCH',
     url: `http://localhost:5000/Ventas/${id}/`,
@@ -54,7 +54,7 @@ export const editarVenta = async (id, data, successCallback, errorCallback) => {
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
-}*/
+
 
 /*---------USUARIOS-------------*/
 

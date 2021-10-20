@@ -741,3 +741,15 @@ background-color: #ff790a;
 #busqueda{
     width: 20em;
 }
+
+input[type=date] {
+    width: auto;
+    height: 35px;
+    font-size: 14px;
+    padding: 4px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 10px;
+    justify-content: center;
+}

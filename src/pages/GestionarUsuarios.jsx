@@ -104,9 +104,8 @@ const GestionarUsuarios = () => {
 
     const [GestionarUsuarios, setGestionarUsuarios] = useState([]);
     const form=useRef(null);
-    const [busqueda, setBusqueda]=useState("");
+    // const [busqueda, setBusqueda]=useState("");
     // const [ejecutarConsulta, setEjecutarConsulta]=useState(true);
-    const [usuariosFiltrados, setUsuariosFiltrados]=useState(GestionarUsuariosBackend);
 
     //hacer esto cuando tengamos la base lista de usuarios, desde hora y 50m min para complementar, clase 14
     // useEffect(() =>{
@@ -131,18 +130,18 @@ const GestionarUsuarios = () => {
 
     }, []);
 
-    useEffect(() => {
-        console.log("Busqueda", busqueda);
-        console.log("lista Original",GestionarUsuariosBackend);
-        console.log("listafiltrada",
-        setUsuariosFiltrados(
-            GestionarUsuariosBackend.filter(elemento=>{
-            return JSON.stringify(elemento).includes(busqueda);
-            //para solo una varible: elemento.give_name.includes...
-        }))
-        )
-    }, [busqueda, GestionarUsuariosBackend]);
-    //revisar variables de este useEffect
+    // useEffect(() => {
+    //     console.log("Busqueda", busqueda);
+    //     console.log("lista Original",GestionarUsuariosBackend);
+    //     console.log("listafiltrada",
+    //     setUsuariosFiltrados(
+    //         GestionarUsuariosBackend.filter(elemento=>{
+    //         return JSON.stringify(elemento).includes(busqueda);
+    //         //para solo una varible: elemento.give_name.includes...
+    //     }))
+    //     )
+    // }, [busqueda, GestionarUsuariosBackend]);
+    // //revisar variables de este useEffect
 
     const submitEdit =(e)=>{
         e.preventDefault();
@@ -160,7 +159,8 @@ const GestionarUsuarios = () => {
                     <ul className="posicionBuscador"> 
                         <li>
                             <div className="label">Ingresa el ID del usuario:</div>
-                            <input id="busqueda" type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}/>
+                            <input id="busqueda" type="text"/>
+                            {/* //value={busqueda} onChange={(e) => setBusqueda(e.target.value)} */}
                             <button className="botonBuscar" type="submit">Buscar</button>
                         </li>
                     </ul>
