@@ -3,7 +3,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import {obtenerVentas,registrarVentas,editarVentas} from'../utils/api';
+import { obtenerVentas, registrarVentas , editarVentas } from'../utils/api';
+import { obtenerProductos } from'../utils/api';
 import { nanoid } from 'nanoid';
 
 const GestionarVentasBackend = [
@@ -12,42 +13,39 @@ const GestionarVentasBackend = [
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "Entregada",
-        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "007",
+        nombre_vendedor: "Gina Rodriguez",
     },
     {
         idVenta: "0002",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "Cancelada",
-        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "007",
+        nombre_vendedor: "Gina Rodriguez",
     },
     {
         idVenta: "0003",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "En Progreso",
-        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "007",
+        nombre_vendedor: "Gina Rodriguez",
     },
     {
         idVenta: "0004",
         fecha_venta:"08/10/2021",
         fecha_pago:"8/10/2021",
         estado_venta: "En Progreso",
-        idCliente:'0006',
         nombre_cliente:'Laura Rojas',
         total_venta: "$120.000",
-        idVendedor: "007",
+        nombre_vendedor: "Gina Rodriguez",
     },
 ]
+
 const Ventas = () =>{
     const [Ventas, setVentas] = useState([]);
     const [mostrarTablaVentas, setMostrarTablaVentas] = useState(true);
@@ -84,7 +82,6 @@ const Ventas = () =>{
             setTextoBoton('Registrar Venta');
         } else {
             setTextoBoton('Volver a Gestionar Ventas');
-            //setColorBoton();
         }
     }, [mostrarTablaVentas]);
 
@@ -112,7 +109,6 @@ const Ventas = () =>{
 }
 
 /*---------Tabla ventas--------------------*/
-
 
 const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
     const [busqueda, setBusqueda] = useState('');
@@ -157,9 +153,8 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
                                 <th scope="col">Fecha Venta</th>
                                 <th scope="col">Fecha Pago</th>
                                 <th scope="col">Estado Venta</th>
-                                <th scope="col">ID Cliente</th>
                                 <th scope="col">Nombre Cliente</th>
-                                <th scope="col">ID Vendedor</th>
+                                <th scope="col">Nombre Vendedor</th>
                                 <th scope="col">Valor total</th>
                                 <th id="acciones" colspan="2">Acción</th>
                             </tr>
@@ -184,6 +179,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
 };
 
 /*------------Editar orden-------------------------->*/
+
 const FilaVentas =({Ventas,setEjecutarConsulta}) => {
     const [edit,setEdit] = useState(false);
     const [infoNuevaVenta, setInfoNuevaVenta] = useState(
@@ -192,9 +188,8 @@ const FilaVentas =({Ventas,setEjecutarConsulta}) => {
             fecha_venta:Ventas.fecha_venta,
             fecha_pago:Ventas.fecha_pago,
             estado_venta:Ventas.estado_venta,
-            idCliente:Ventas.idCliente,
             nombre_cliente:Ventas.nombre_cliente,
-            idVendedor:Ventas.idVendedor,
+            nombre_vendedor:Ventas.nombre_vendedor,
             total_venta:Ventas.total_venta,
         }
     );
@@ -207,9 +202,8 @@ const FilaVentas =({Ventas,setEjecutarConsulta}) => {
                 fecha_venta:infoNuevaVenta.fecha_venta,
                 fecha_pago:infoNuevaVenta.fecha_pago,
                 estado_venta:infoNuevaVenta.estado_venta,
-                idCliente:infoNuevaVenta.idCliente,
                 nombre_cliente:infoNuevaVenta.nombre_cliente,
-                idVendedor:infoNuevaVenta.idVendedor,
+                nombre_vendedor:infoNuevaVenta.nombre_vendedor,
                 total_venta:infoNuevaVenta.total_venta,
             },
             (response) =>{
@@ -229,11 +223,9 @@ const FilaVentas =({Ventas,setEjecutarConsulta}) => {
         <tr>
             {edit ? (
                 <>
-                {/* //linea 233 no se que es? */}
-                <td>{infoNuevaVenta.idVenta}</td>
-                {/* <td>{Ventas.idVenta}</td> */}
+                <td>{Ventas.idVenta}</td>
                 <td>{Ventas.fecha_venta}</td>
-                {/* <td>{Ventas.fecha_pago}</td> */}
+                <td>{Ventas.fecha_pago}</td>
                 <td><input className="estiloCampos" type="date"/></td>
                 <td>
                     <select name="estado_venta" className="estilosCampos"
@@ -246,9 +238,8 @@ const FilaVentas =({Ventas,setEjecutarConsulta}) => {
                         <option>En Progreso</option>
                     </select>
                 </td>
-                <td>{Ventas.idCliente}</td>
                 <td>{Ventas.nombre_cliente}</td>
-                <td>{Ventas.idVendedor}</td>
+                <td>{Ventas.nombre_vendedor}</td>
                 <td>{Ventas.total_venta}</td> 
                 <td>
                     <button className="checkButton" onClick={actualizarVenta()}>
@@ -267,9 +258,8 @@ const FilaVentas =({Ventas,setEjecutarConsulta}) => {
                 <td>{Ventas.fecha_pago}</td>
                 <td><label className={Ventas.estado_venta==='Entregada' ? 'badgeAvailable': Ventas.estado_venta==='En Progreso' ? "badgeInProgress" : 'badgeNotAvailable'}>
                     {Ventas.estado_venta}</label></td>
-                <td>{Ventas.idCliente}</td>
                 <td>{Ventas.nombre_cliente}</td>
-                <td>{Ventas.idVendedor}</td>
+                <td>{Ventas.nombre_vendedor}</td>
                 <td>{Ventas.total_venta}</td>  
                 <td><button className="editButton" onClick={() => setEdit(!edit)}>
                     <span className="material-icons">edit</span>
@@ -280,11 +270,12 @@ const FilaVentas =({Ventas,setEjecutarConsulta}) => {
         </tr>
     );
 };
+
 /*------------Registrar Ventas----------------------*/
 
 const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
-    const form = useRef(null);
 
+    const form = useRef(null);
     const submitForm = async (e) => {
         e.preventDefault();
         const fd = new FormData(form.current);
@@ -327,22 +318,18 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                     <span>Registrar nueva venta</span></div>
                 <div className="descripcionSeccion">Ingresa los datos de la venta a registrar.</div>
             </div>
-            <section className="contenedorFormVentas"id="container">
-                <div className="datos_cliente">
-                  <div className="action_cliente">
-                      <h4>Datos del Cliente</h4>
-                      <a href="#" className="btn_new btn_new_cliente"><i class="fas fa-plus"></i>Nuevo Cliente</a>
-                  </div>
-                  <form ref={form} onSubmit={submitForm} name ="form_new_cliente_venta" id= "form_new_cliente_venta" class="datos">
-                      <input id="input_ventas" type="hidden" name="action" value="addCliente"/>
-                      <input id="input_ventas" type="hidden" name="idCliente" value="" required/>
 
+            <section className="contenedorFormVentas"id="container">
+                {/* En este form se deben poner los estilos */}
+                <form ref={form} onSubmit={submitForm} name ="form_ventas" id= "form_ventas">
+
+                <h4>Datos del Cliente</h4>
                       <div className="wd20">
                           <label id="label">Cédula</label>
                           <input id="input_ventas" type="text" name="ced_cliente" required/>
                       </div>
                       <div className="wd50">
-                          <label id="label">Nombre</label>
+                          <label id="label">Nombre Completo</label>
                           <input id="input_ventas" type="text" name="nombre_cliente" required/>
                       </div>
                       <div className="wd50">
@@ -353,39 +340,18 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                           <label id="label">Dirección</label>
                           <input id="input_ventas" type="text" name="dir_cliente" required/>
                       </div>
-                      <div id="div_registro_cliente" className= "wd100">
-                          <button type="submit" className="btn_save"><i className="far fa-save fa-lg"></i>Guardar</button>
-                      </div>
-                  </form>
-                 </div>
 
-              <div className="datos_venta">
-                  <h4>Datos del  Vendedor</h4>
-                  <div className="datos">
+                    <br/>
+
+                      <h4>Datos de la Venta</h4>
                       <div className="wd50">
-                          <label id="label">ID Vendedor</label>
-                          <input id="input_ventas" type="text" name="idVendedor" required/>
-                      </div>
-                      <div className="wd50">
-                          <label id="label">Nombre</label>
+                          <label id="label">Nombre Vendedor</label>
                           <input id="input_ventas" type="text" name="nom_vendedor" required/>
                       </div>
                       <div className="wd50">
                           <label id="label">Fecha de facturación</label>
                           <input id="input_fecha" type="date" name="fecha_venta" required/>
                       </div>
-                      <div className="wd100">
-                      </div>
-                  </div>
-              </div>
-
-              <div className="datos_venta">
-                  <h4>Datos Venta</h4>
-                  <div className="datos">
-                      {/* <div className="wd50">
-                          <label id="label">Código</label>
-                          <input id="input_ventas" type="text" name="code" required/>
-                      </div> */}
                       <div className="wd50">
                           <label id="label">Producto
                           <select id="listaProductos" name="descripcion" required defaultValue={0} >
@@ -411,8 +377,7 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                           <label id="label">Fecha de Pago</label>
                           <input id="input_fecha" type="date" name="fecha_pago" required/>
                       </div>
-                  </div>
-              </div>
+                </form>
 
               <table border="1"id="tbl_venta">
                   <thead>
@@ -427,6 +392,7 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                   </thead>
 
                   <tbody id="detalle_venta">
+                      {/* esto tiene que ir dentro de un componente */}
                       <tr>
                           <td>1001</td>
                           <td id="t_ventas" colspan="2">Tennis</td>
@@ -434,16 +400,6 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                           <td id="t_ventas" className="textright">100.00</td>
                           <td id="t_ventas" className="textright">100.00</td>
                           <td id="t_ventas" className=""><a className="link_delate" href="#" onclick= "event.preventDefault(); del_product_detalle(1);"><i className="far fa-trash-alt"></i>Eliminar</a></td>
-                      </tr>
-
-                      <tr>
-                          <td>1002</td>
-                          <td id="t_ventas" colspan="2">Camisas</td>
-                          <td id="t_ventas" className="textcenter">1</td>
-                          <td id="t_ventas" className="textright">150.00</td>
-                          <td id="t_ventas" className="textright">100.00</td>
-                          <td id="t_ventas" className=""><a className="link_delate" href="#" onclick= "event.preventDefault(); del_product_detalle(1);"><i className="far fa-trash-alt"></i></a>
-                          </td>
                       </tr>
                   </tbody>
                   <tfoot>
@@ -454,9 +410,8 @@ const RegistrarVentas = ({ setMostrarTablaVentas, listaVentas, setVentas }) => {
                   </tfoot>
               </table>
             </section>
-            <br/>
-            <br/>
             <button type="submit" className="botonGuardarProducto"> Procesar </button>
+            <button type="submit" className="botonGuardarProducto"> Anular </button>
             <Footer/>
         </div>
     );
