@@ -3,14 +3,14 @@ import axios from 'axios';
 
 export const obtenerProductos = async (successCallback, errorCallback) => {
   const options = { method: 'GET',
-  url: 'http://localhost:3001/productos/' };
+  url: 'https://mighty-headland-73361.herokuapp.com/productos/' };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
 export const registrarProducto = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
-    url: 'http://localhost:3001/productos/create',
+    url: 'https://mighty-headland-73361.herokuapp.com/productos/create',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
@@ -20,7 +20,7 @@ export const registrarProducto = async (data, successCallback, errorCallback) =>
 export const editarProducto = async ( data, successCallback, errorCallback) => {
   const options = {
     method: 'PATCH',
-    url: 'http://localhost:3001/productos/update/',
+    url: 'https://mighty-headland-73361.herokuapp.com/productos/update/',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
@@ -60,14 +60,14 @@ export const editarVentas = async (id, data, successCallback, errorCallback) => 
 
 export const obtenerUsuarios = async (successCallback, errorCallback) => {
   const options = { method: 'GET',
-  url: 'http://localhost:3001/usuarios/' };
+  url: 'https://mighty-headland-73361.herokuapp.com/usuarios/' };
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
 export const registrarUsuarios = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
-    url: 'http://localhost:3001/usuarios/create',
+    url: 'https://mighty-headland-73361.herokuapp.com/usuarios/create',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
@@ -77,7 +77,7 @@ export const registrarUsuarios = async (data, successCallback, errorCallback) =>
 export const editarUsuarios = async ( data, successCallback, errorCallback) => {
   const options = {
     method: 'PATCH',
-    url: 'http://localhost:3001/usuarios/update/',
+    url: 'https://mighty-headland-73361.herokuapp.com/usuarios/update/',
     headers: { 'Content-Type': 'application/json' },
     data,
   };
